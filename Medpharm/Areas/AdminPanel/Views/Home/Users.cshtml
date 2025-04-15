@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "User Management";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-users me-2"></i>Manage Users
+            </h3>
+        </div>
+
+        <!-- Alert for notifications -->
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="actionAlert">
+            <span id="alertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table-design" id="userTable">
+                    <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                        <th><i class="fas fa-user me-1"></i>Full Name</th>
+                        <th><i class="fas fa-user-tag me-1"></i>Username</th>
+                        <th><i class="fas fa-envelope me-1"></i>Email</th>
+                        <th><i class="fas fa-phone me-1"></i>Phone</th>
+                        <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                    <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/user.js"></script> <!-- Link to the external JavaScript file for user operations -->
+<style>
+    .table-design {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;  /* Ensures consistent column width */
+    }
+
+    .table-design th, .table-design td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+    }
+
+    .table-design th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;  /* Fixed width for better alignment */
+    }
+
+    .buttondanger {
+        padding: 5px 10px;
+        margin: 2px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        border: none;
+        width: 100%;  /* Full-width for consistent styling */
+        box-sizing: border-box;
+        background-color: #dc3545;
+    }
+
+    .buttondanger:hover {
+        background-color: #c82333;
+    }
+</style>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

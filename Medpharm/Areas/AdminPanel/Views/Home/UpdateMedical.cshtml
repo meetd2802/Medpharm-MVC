@@ -1,0 +1,119 @@
+@{
+    ViewData["Title"] = "Update Medical Update";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-notes-medical me-2"></i> Update Medical Update</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateMedicalUpdateForm" enctype="multipart/form-data">
+                    <input type="hidden" id="medicalUpdateId">
+                    <input type="hidden" id="existingImagePath">
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="medicalUpdateName" class="form-label">
+                            <i class="fas fa-file-signature me-2"></i>Name
+                        </label>
+                        <input type="text" id="medicalUpdateName" name="medicalUpdateName" class="form-control" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="medicalUpdateDescription" class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description
+                        </label>
+                        <textarea id="medicalUpdateDescription" name="medicalUpdateDescription" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Current Image Preview -->
+                    <div class="mb-3 text-center">
+                        <label class="form-label"><i class="fas fa-image me-2"></i>Current Image</label>
+                        <div>
+                            <img id="medicalUpdateImagePreview" src="" alt="Medical Update Image"
+                                 class="rounded border shadow-sm"
+                                 style="width: 150px; height: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Upload New Image -->
+                    <div class="mb-3">
+                        <label for="medicalUpdateImage" class="form-label">
+                            <i class="fas fa-upload me-2"></i>Upload New Image
+                        </label>
+                        <input type="file" id="medicalUpdateImage" name="medicalUpdateImage" class="form-control" accept="image/*">
+                        <small class="form-text text-muted">Leave empty to keep the current image</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="button" onclick="updateMedicalUpdate()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Medical Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Medical Update Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Medical Update!
+        </div>
+    </div>
+</section>
+
+
+<script src="~/js/updatemedical.js"></script> <!-- Link JS file -->
+
+<script>
+    $(document).ready(function () {
+        console.log("🟢 updatemedicalupdate.js loaded!");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const medicalUpdateId = urlParams.get("id");
+
+        if (!medicalUpdateId) {
+            console.warn("⚠️ No Medical Update ID found in URL.");
+            return;
+        }
+
+        console.log("📢 Medical Update ID found:", medicalUpdateId);
+
+        // Fetch Medical Update details and populate form
+        $.ajax({
+            url: `http://localhost:5071/api/MedicalUpdate/getmedicalupdate/${medicalUpdateId}`,
+            type: "GET",
+            success: function (response) {
+                if (response && response.dataList && response.dataList.length > 0) {
+                    let medicalUpdate = response.dataList[0];
+
+                    $("#medicalUpdateId").val(medicalUpdate.id);
+                    $("#medicalUpdateName").val(medicalUpdate.name);
+                    $("#medicalUpdateDescription").val(medicalUpdate.description);
+                    $("#existingImagePath").val(medicalUpdate.imagePath || "");
+
+                    if (medicalUpdate.imagePath) {
+                        let imageUrl = `http://localhost:5071${medicalUpdate.imagePath}`;
+                        $("#medicalUpdateImagePreview").attr("src", imageUrl).show();
+                    }
+                }
+            },
+            error: function (xhr) {
+                console.error("❌ Failed to fetch Medical Update details.", xhr.status, xhr.responseText);
+            }
+        });
+    });
+</script>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

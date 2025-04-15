@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Update Doctor";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-user-md me-2"></i>Update Doctor Details</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateDoctorForm" enctype="multipart/form-data">
+                    <input type="hidden" id="doctorId">
+                    <input type="hidden" id="existingImagePath">
+
+                    <div class="mb-3">
+                        <label for="doctorName" class="form-label">
+                            <i class="fas fa-user me-2"></i>Doctor Name
+                        </label>
+                        <input type="text" id="doctorName" name="doctorName" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="speciality" class="form-label">
+                            <i class="fas fa-stethoscope me-2"></i>Speciality
+                        </label>
+                        <input type="text" id="speciality" name="speciality" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <label class="form-label"><i class="fas fa-image me-2"></i>Current Image</label>
+                        <div>
+                            <img id="doctorImagePreview" src="" alt="Doctor Image"
+                                 class="rounded border shadow-sm"
+                                 style="width: 150px; height: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="doctorImage" class="form-label">
+                            <i class="fas fa-upload me-2"></i>Upload New Image
+                        </label>
+                        <input type="file" id="doctorImage" name="doctorImage" class="form-control" accept="image/*">
+                        <small class="form-text text-muted">Leave empty to keep the current image</small>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="button" onclick="updateDoctor()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Doctor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Doctor Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Doctor!
+        </div>
+    </div>
+</section>
+
+
+<script src="~/js/updatedoctor.js"></script> <!-- Link JS file -->
+
+<script>
+    $(document).ready(function () {
+        console.log("🟢 updateDoctor.js loaded!");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const doctorId = urlParams.get("id");
+
+        if (!doctorId) {
+            console.warn("⚠️ No doctor ID found in URL.");
+            return;
+        }
+
+        console.log("📢 Doctor ID found:", doctorId);
+
+        // Fetch doctor details and populate form
+        $.ajax({
+            url: `http://localhost:5071/api/Doctor/getdoctor/${doctorId}`,
+            type: "GET",
+            success: function (response) {
+                if (response && response.dataList && response.dataList.length > 0) {
+                    let doctor = response.dataList[0];
+
+                    $("#doctorId").val(doctor.id);
+                    $("#doctorName").val(doctor.name);
+                    $("#speciality").val(doctor.speciality);
+                    $("#existingImagePath").val(doctor.imagePath || "");
+
+                    if (doctor.imagePath) {
+                        let imageUrl = `http://localhost:5071${doctor.imagePath}`;
+                        $("#doctorImagePreview").attr("src", imageUrl).show();
+                    }
+                }
+            },
+            error: function (xhr) {
+                console.error("❌ Failed to fetch doctor details.", xhr.status, xhr.responseText);
+            }
+        });
+    });
+</script>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

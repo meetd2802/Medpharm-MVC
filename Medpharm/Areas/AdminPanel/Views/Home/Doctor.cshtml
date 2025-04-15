@@ -1,0 +1,50 @@
+@{
+    ViewData["Title"] = "Manage Doctors";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-user-md me-2"></i>Manage Doctors
+            </h3>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddDoctor","Home")'">
+                <i class="fas fa-plus me-2"></i>ADD DOCTOR
+            </button>
+        </div>
+
+        <!-- Alert for notifications -->
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="doctorAlert">
+            <span id="doctorAlertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table-design" id="doctorTable">
+                    <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                        <th><i class="fas fa-image me-1"></i>Image</th>
+                        <th><i class="fas fa-user-md me-1"></i>Name</th>
+                        <th><i class="fas fa-stethoscope me-1"></i>Speciality</th>
+                        <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody id="doctorsTable">
+                    <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/doctor.js"></script> <!-- Include external JS file -->
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

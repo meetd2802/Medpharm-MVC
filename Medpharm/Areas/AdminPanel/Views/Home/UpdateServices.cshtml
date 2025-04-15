@@ -1,0 +1,178 @@
+@{
+    ViewData["Title"] = "Update Service";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+
+
+<<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-concierge-bell me-2"></i> Update Service</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateServiceForm" enctype="multipart/form-data">
+                    <input type="hidden" id="serviceId">
+                    <input type="hidden" id="existingImagePath">
+
+                    <!-- Service Name -->
+                    <div class="mb-3">
+                        <label for="serviceName" class="form-label">
+                            <i class="fas fa-file-signature me-2"></i>Service Name
+                        </label>
+                        <input type="text" id="serviceName" name="serviceName" class="form-control" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description
+                        </label>
+                        <input type="text" id="description" name="description" class="form-control" required>
+                    </div>
+
+                    <!-- Current Image Preview -->
+                    <div class="mb-3 text-center">
+                        <label class="form-label"><i class="fas fa-image me-2"></i>Current Image</label>
+                        <div>
+                            <img id="serviceImagePreview" src="" alt="Service Image"
+                                 class="rounded border shadow-sm"
+                                 style="width: 150px; height: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Upload New Image -->
+                    <div class="mb-3">
+                        <label for="serviceImage" class="form-label">
+                            <i class="fas fa-upload me-2"></i>Upload New Image
+                        </label>
+                        <input type="file" id="serviceImage" name="serviceImage" class="form-control" accept="image/*">
+                        <small class="form-text text-muted">Leave empty to keep the current image</small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="button" onclick="updateService()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Service Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Service!
+        </div>
+    </div>
+</section>
+
+
+<script src="~/js/updateservice.js"></script> <!-- Link JS file -->
+
+<script>
+    $(document).ready(function () {
+        console.log("🟢 updateService.js loaded!");
+
+        // Extract service ID from the URL query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceId = urlParams.get("id");
+
+        if (!serviceId) {
+            console.warn("⚠️ No service ID found in URL.");
+            return;
+        }
+
+        console.log("📢 Service ID found:", serviceId);
+
+        // Fetch service details and populate form
+        $.ajax({
+            url: `http://localhost:5071/api/Service/getservice/${serviceId}`,
+            type: "GET",
+            success: function (response) {
+                console.log("✅ Service data received:", response); // Log the response to debug
+
+                if (response && response.dataList && response.dataList.length > 0) {
+                    let service = response.dataList[0];
+
+                    // Populate form with existing data
+                    $("#serviceId").val(service.serviceID);
+                    $("#serviceName").val(service.serviceName);
+                    $("#description").val(service.description);
+                    $("#existingImagePath").val(service.imagePath || "");
+
+                    // Show current image
+                    if (service.imagePath) {
+                        let imageUrl = `http://localhost:5071${service.imagePath}`;
+                        $("#serviceImagePreview").attr("src", imageUrl).show();
+                    }
+                }
+            },
+            error: function (xhr) {
+                console.error("❌ Failed to fetch service details.", xhr.status, xhr.responseText);
+            }
+        });
+    });
+
+    function updateService() {
+        const serviceId = $("#serviceId").val();
+        const serviceName = $("#serviceName").val();
+        const description = $("#description").val();
+        let imageFile = $("#serviceImage")[0].files[0];
+
+        let formData = new FormData();
+        formData.append("serviceID", serviceId);
+        formData.append("serviceName", serviceName);
+        formData.append("description", description);
+
+        if (imageFile) {
+            formData.append("serviceImage", imageFile);
+        }
+
+        // Send the update request
+        $.ajax({
+            url: `http://localhost:5071/api/Service/updateservice`,
+            type: "PUT",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (response) {
+                console.log("✅ Service update response:", response);
+
+                // Check if the service was updated successfully based on the response message
+                if (response && response.message === "Service updated successfully.") {
+                    alert("✅ Service updated successfully!");
+
+                    // Manually update the form with the new data
+                    $("#serviceName").val(response.data.serviceName);
+                    $("#description").val(response.data.description);
+
+                    // If a new image is uploaded, update the image preview
+                    if (response.data.imagePath) {
+                        let imageUrl = `http://localhost:5071${response.data.imagePath}`;
+                        $("#serviceImagePreview").attr("src", imageUrl).show();
+                    }
+
+                    // Redirect to the services page after successful update
+                    window.location.href = "/AdminPanel/Home/Services"; // Change the URL to wherever you want to redirect
+                } else {
+                    alert("❌ Service update failed.");
+                    console.error("Error details:", response);
+                }
+            },
+            error: function (xhr) {
+                alert("❌ Failed to update service.");
+                console.error("Error Details:", xhr.status, xhr.responseText);
+            }
+        });
+    }
+</script>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

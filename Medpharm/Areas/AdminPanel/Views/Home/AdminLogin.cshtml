@@ -1,0 +1,154 @@
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="login-container">
+        <h3><i class="fas fa-hospital-user me-2"></i>Login to MedPharm</h3>
+
+        <form method="post" id="loginForm" class="needs-validation" novalidate>
+            <div class="mb-4">
+                <label for="username" class="form-label">
+                    <i class="fas fa-user me-2"></i>Username
+                </label>
+                <input type="text" id="username" name="username" class="form-control"
+                       placeholder="Enter your username" required>
+                <div class="invalid-feedback">Please enter your username</div>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">
+                    <i class="fas fa-lock me-2"></i>Password
+                </label>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" class="form-control"
+                           placeholder="Enter your password" required>
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </div>
+                <div class="invalid-feedback">Please enter your password</div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" id="loginButton" class="login-button">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<style>
+    .login-container {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.98);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+        will-change: transform; /* Improves rendering performance */
+    }
+
+    .login-container:hover {
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    .login-container h3 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #0056b3;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+    }
+
+    .login-button {
+        width: 100%;
+        background-color: #0056b3;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+    }
+
+    .login-button:hover {
+        background-color: #004099;
+        transform: translateY(-3px);
+    }
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let loginForm = document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            fetch("http://localhost:5071/api/Admin/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, password: password })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("✅ Login successful!");
+
+                        // ✅ Store Admin ID in localStorage & sessionStorage
+                        let adminId = data.admin.id;
+                        localStorage.setItem("adminId", adminId);
+                        sessionStorage.setItem("adminId", adminId);
+
+                        console.log("🔍 Admin ID stored:", adminId);
+
+                        // ✅ Step 1: Store login session in MVC
+                        return fetch("/AdminPanel/Admin/StoreSession", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data.admin) // Send admin details to MVC
+                        });
+                    } else {
+                        throw new Error("Invalid login credentials.");
+                    }
+                })
+                .then(res => res.json())
+                .then(resData => {
+                    if (resData.success) {
+                        // ✅ Step 2: Redirect to Admin Profile Page with ID
+                        let adminId = localStorage.getItem("adminId");
+                        window.location.href = `http://localhost:5062/AdminPanel/Home/Index`;
+                    } else {
+                        alert("⚠️ Failed to store session in MVC.");
+                    }
+                })
+                .catch(error => {
+                    console.error("❌ Error:", error);
+                    alert("Login failed! Please check your credentials.");
+                });
+        });
+    });
+</script>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

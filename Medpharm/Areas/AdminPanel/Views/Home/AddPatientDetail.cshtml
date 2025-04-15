@@ -1,0 +1,262 @@
+@{
+    ViewData["Title"] = "Index Page";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-user-injured me-2"></i>Patient Form</h3>
+            </div>
+            <div class="card-body">
+                <form id="patientForm" action="" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Basic Patient Information -->
+                            <div class="mb-3">
+                                <label for="created_at" class="form-label">
+                                    <i class="fas fa-calendar me-2"></i>Created At
+                                </label>
+                                <input type="text" id="created_at" name="created_at" class="form-control" readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Full Name
+                                </label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">
+                                    <i class="fas fa-phone me-2"></i>Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">
+                                    <i class="fas fa-venus-mars me-2"></i>Gender
+                                </label>
+                                <select id="gender" name="gender" class="form-select">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">
+                                    <i class="fas fa-weight me-2"></i>Weight (kg)
+                                </label>
+                                <input type="number" id="weight" name="weight" class="form-control" min="1" step="0.1">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="diseases" class="form-label">
+                                    <i class="fas fa-disease me-2"></i>Diseases
+                                </label>
+                                <input type="text" id="diseases" name="diseases" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="history" class="form-label">
+                                    <i class="fas fa-history me-2"></i>Past Medical History
+                                </label>
+                                <textarea id="history" name="history" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="medicine" class="form-label">
+                                    <i class="fas fa-pills me-2"></i>Taking Any Medicine
+                                </label>
+                                <input type="text" id="medicine" name="medicine" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Lab Report & Medical Information -->
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    <i class="fas fa-file-medical-alt me-2"></i>Lab Report (if any)
+                                </label>
+                                <input type="file" id="lab" name="lab" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="surgery" class="form-label">
+                                    <i class="fas fa-procedures me-2"></i>Past Medical Surgery (if any)
+                                </label>
+                                <textarea id="surgery" name="surgery" class="form-control" rows="2"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reportsSelect" class="form-label">
+                                    <i class="fas fa-clipboard-list me-2"></i>Select Lab Reports
+                                </label>
+                                <select id="reportsSelect" class="form-select">
+                                    <option value="">Select a report</option>
+                                    <!-- Reports will be populated here -->
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reportsText" class="form-label">
+                                    <i class="fas fa-sticky-note me-2"></i>Selected Reports
+                                </label>
+                                <textarea id="reportsText" name="reports" class="form-control" rows="4"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="prescriptionSelect" class="form-label">
+                                    <i class="fas fa-prescription-bottle-alt me-2"></i>Select Prescription Medicine
+                                </label>
+                                <select id="prescriptionSelect" class="form-select">
+                                    <option value="">Select a medicine</option>
+                                    <!-- Medicines will be populated here -->
+                                </select>
+                            </div>
+
+                            <!-- Selected Medicines -->
+                            <div class="mb-3">
+                                <label for="prescription" class="form-label">
+                                    <i class="fas fa-notes-medical me-2"></i>Selected Medicines
+                                </label>
+                                <textarea id="prescription" name="prescription" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 col-md-6 mx-auto mt-3">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-check me-2"></i>Done
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ✅ Ensure script loads at the end -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let reportsSelect = document.getElementById("reportsSelect");
+        let reportsTextarea = document.getElementById("reportsText");
+        let selectedReports = new Set();
+
+        // ✅ Fetch reports from "reports.txt"
+        fetch("/reports.txt")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load reports file");
+                }
+                return response.text();
+            })
+            .then(data => {
+                let reportsList = data.split("\n").map(report => report.trim()).filter(report => report.length > 0);
+
+                if (reportsList.length === 0) {
+                    console.error("❌ Reports list is empty.");
+                    return;
+                }
+
+                // ✅ Populate dropdown
+                reportsList.forEach(report => {
+                    let option = document.createElement("option");
+                    option.value = report;
+                    option.textContent = report;
+                    reportsSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error("❌ Error loading reports:", error));
+
+        // ✅ Add report when selected
+        reportsSelect.addEventListener("change", function () {
+            const selectedReport = this.value;
+            if (selectedReport && !selectedReports.has(selectedReport)) {
+                selectedReports.add(selectedReport);
+                updateReportsTextarea();
+            }
+            // Reset select to default option
+            this.value = "";
+        });
+
+        // ✅ Update textarea with selected reports
+        function updateReportsTextarea() {
+            reportsTextarea.value = Array.from(selectedReports).join("\n");
+        }
+
+        // ✅ Allow editing the textarea and sync with selectedReports
+        reportsTextarea.addEventListener("input", function() {
+            const reports = this.value.split("\n").map(report => report.trim()).filter(report => report.length > 0);
+            selectedReports = new Set(reports);
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let select = document.getElementById("prescriptionSelect");
+        let prescriptionTextarea = document.getElementById("prescription");
+        let selectedMedicines = new Set();
+
+        // ✅ Fetch medicines from "medicines.txt"
+        fetch("/medicines.txt")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load medicines file");
+                }
+                return response.text();
+            })
+            .then(data => {
+                let medicineList = data.split("\n").map(med => med.trim()).filter(med => med.length > 0);
+
+                if (medicineList.length === 0) {
+                    console.error("❌ Medicines list is empty.");
+                    return;
+                }
+
+                // ✅ Populate dropdown
+                medicineList.forEach(medicine => {
+                    let option = document.createElement("option");
+                    option.value = medicine;
+                    option.textContent = medicine;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error("❌ Error loading medicines:", error));
+
+        // ✅ Add medicine when selected
+        select.addEventListener("change", function () {
+            const selectedMedicine = this.value;
+            if (selectedMedicine && !selectedMedicines.has(selectedMedicine)) {
+                selectedMedicines.add(selectedMedicine);
+                updatePrescriptionTextarea();
+            }
+            // Reset select to default option
+            this.value = "";
+        });
+
+        // ✅ Update textarea with selected medicines
+        function updatePrescriptionTextarea() {
+            prescriptionTextarea.value = Array.from(selectedMedicines).join("\n");
+        }
+
+        // ✅ Allow editing the textarea and sync with selectedMedicines
+        prescriptionTextarea.addEventListener("input", function() {
+            const medicines = this.value.split("\n").map(med => med.trim()).filter(med => med.length > 0);
+            selectedMedicines = new Set(medicines);
+        });
+    });
+</script>
+
+
+
+<script src="~/js/addpatient.js"></script>
+

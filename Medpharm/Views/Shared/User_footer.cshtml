@@ -1,0 +1,105 @@
+<!-- Footer Section -->
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Hospital Info -->
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5 data-i18n="footer_about">About MedPharm</h5>
+                <p data-i18n="footer_about_text">MedPharm Hospital is a comprehensive healthcare facility providing quality medical services since 2005. We are committed to excellence in patient care and innovative treatments.</p>
+                <div class="social-icons mt-3">
+                    <a href="#" class="text-white mr-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white mr-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white mr-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5 data-i18n="footer_quick_links">Quick Links</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="@Url.Action("Index","Home")#Home" class="text-light"><i class="fas fa-angle-right mr-2"></i> <span data-i18n="nav_home">Home</span></a></li>
+                    <li><a href="@Url.Action("Index","Home")#Doctors" class="text-light"><i class="fas fa-angle-right mr-2"></i> <span data-i18n="nav_doctors">Doctors</span></a></li>
+                    <li><a href="@Url.Action("Index","Home")Aappointment" class="text-light"><i class="fas fa-angle-right mr-2"></i> <span data-i18n="nav_appointment">Appointment</span></a></li>
+                    <li><a href="@Url.Action("Index","Home")#services" class="text-light"><i class="fas fa-angle-right mr-2"></i> <span data-i18n="nav_services">Services</span></a></li>
+                    <li><a href="@Url.Action("Index","Home")#contact" class="text-light"><i class="fas fa-angle-right mr-2"></i> <span data-i18n="nav_contact">Contact</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-3 mb-4 mb-md-0">
+                <h5 data-i18n="footer_contact">Contact Us</h5>
+                <address>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> Medpharm Hospital, <br>opp. Vakil Shaheb Bridge, <br>Boap Ahmedabad 380058</p>
+                    <p><i class="fas fa-phone mr-2"></i> <a href="tel:+9898076085" class="text-light">+91 9898076085</a></p>
+                    <p><i class="fas fa-envelope mr-2"></i> <a href="mailto:medpharm123@gmail.com" class="text-light">medpharm123@gmail.com</a></p>
+                </address>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="col-md-3">
+                <h5 data-i18n="footer_hours">Working Hours</h5>
+                <ul class="list-unstyled">
+                    <li><i class="far fa-clock mr-2"></i> <span data-i18n="footer_weekdays">Monday - Sunday:</span> 9:30am - 9:00pm</li>
+                    <li class="mt-2"><strong data-i18n="footer_24_7">24/7 Services:</strong></li>
+                    <li><i class="fas fa-ambulance mr-2"></i> <span data-i18n="footer_emergency">Emergency</span></li>
+                    <li><i class="fas fa-procedures mr-2"></i> <span data-i18n="footer_icu">ICU</span></li>
+                    <li><i class="fas fa-pills mr-2"></i> <span data-i18n="footer_pharmacy">Pharmacy</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="bg-primary text-center py-3 mt-4">
+        <div class="container">
+            <p class="mb-0" data-i18n="footer_copyright">© 2025 MedPharm Hospital. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<!-- JavaScript files -->
+<script src="~/js/medical_site.js"></script>
+
+<script>
+    // Back to top button functionality
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 300) {
+            $('#backToTop').fadeIn();
+        } else {
+            $('#backToTop').fadeOut();
+        }
+    });
+
+    $('#backToTop').click(function(e) {
+        e.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 800);
+    });
+
+    // Smooth scrolling for anchor links
+    $('a[href^="#"]').on('click', function(e) {
+        e.preventDefault();
+
+        var target = this.hash;
+        var $target = $(target);
+
+        $('html, body').animate({
+            'scrollTop': $target.offset().top - 70
+        }, 800, 'swing');
+    });
+</script>
+<script src="~/js/appointment.js"></script>
+<script src="~/js/frontend_doctors.js"></script>
+<script src="~/js/frontendservice.js"></script>
+<script src="~/js/frontend_medical.js"></script>
+<script src="~/js/frontenduser.js"></script>
+<script src="~/js/frontendhealth.js"></script>
+<script src="~/js/medical_site.js"></script>
+<script src="~/js/contactform.js"></script>
+<script src="~/js/waitlistform.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>

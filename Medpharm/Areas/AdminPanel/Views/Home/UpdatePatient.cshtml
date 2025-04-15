@@ -1,0 +1,165 @@
+@{
+    ViewData["Title"] = "Update Patient Data";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title text-center mb-0">
+                    <i class="fas fa-user-injured me-2"></i>Update Patient Data
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="updatePatientForm" class="needs-validation" novalidate>
+                    <input type="hidden" id="patientId" />
+                    <input type="hidden" id="existingLabReport" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Basic Patient Information -->
+                            <div class="mb-3">
+                                <label for="created_at" class="form-label">
+                                    <i class="fas fa-calendar me-2"></i>Created At
+                                </label>
+                                <input type="text" id="created_at" name="created_at" class="form-control" readonly>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Full Name
+                                </label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                                <div class="invalid-feedback">Please enter patient's full name.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">
+                                    <i class="fas fa-phone me-2"></i>Phone Number
+                                </label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                                <div class="invalid-feedback">Please enter a valid phone number.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">
+                                    <i class="fas fa-venus-mars me-2"></i>Gender
+                                </label>
+                                <select id="gender" name="gender" class="form-select">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">
+                                    <i class="fas fa-weight me-2"></i>Weight (kg)
+                                </label>
+                                <input type="number" id="weight" name="weight" class="form-control" min="1" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Medical Information -->
+                            <div class="mb-3">
+                                <label for="diseases" class="form-label">
+                                    <i class="fas fa-disease me-2"></i>Current Diseases
+                                </label>
+                                <input type="text" id="diseases" name="diseases" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="medicine" class="form-label">
+                                    <i class="fas fa-pills me-2"></i>Current Medication
+                                </label>
+                                <input type="text" id="medicine" name="medicine" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="surgery" class="form-label">
+                                    <i class="fas fa-procedures me-2"></i>Past Surgeries
+                                </label>
+                                <textarea id="surgery" name="surgery" class="form-control" rows="2"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="history" class="form-label">
+                                    <i class="fas fa-history me-2"></i>Medical History
+                                </label>
+                                <textarea id="history" name="history" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Lab Report Section -->
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    <i class="fas fa-file-medical-alt me-2"></i>Current Lab Report
+                                </label>
+                                <div>
+                                    <a id="labReportLink" href="#" target="_blank" class="btn btn-sm btn-outline-primary d-none">
+                                        <i class="fas fa-file-download me-1"></i> View Current Report
+                                    </a>
+                                    <span id="noReportMessage" class="text-muted fst-italic">No lab report available</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lab" class="form-label">
+                                    <i class="fas fa-upload me-2"></i>Upload New Lab Report
+                                </label>
+                                <input type="file" id="lab" name="lab" class="form-control">
+                                <small class="form-text text-muted">Leave empty to keep the current report</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Treatment Information -->
+                            <div class="mb-3">
+                                <label for="prescription" class="form-label">
+                                    <i class="fas fa-prescription me-2"></i>Prescription
+                                </label>
+                                <textarea id="prescription" name="prescription" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="reports" class="form-label">
+                                    <i class="fas fa-clipboard-list me-2"></i>Reports & Notes
+                                </label>
+                                <textarea id="reports" name="reports" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                        <button type="button" onclick="updatePatient()" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Update Patient
+                        </button>
+                        <a href="@Url.Action("Patient", "Home")" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Patients
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" style="display:none;">Patient Data Updated Successfully!</div>
+
+    <!-- Error Popup -->
+    <div id="errorPopup" style="display:none;">Error Updating Patient Data!</div>
+</section>
+
+<script src="~/js/updatepatient.js"></script> <!-- Link JavaScript file -->
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")
+

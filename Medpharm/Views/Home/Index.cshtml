@@ -1,0 +1,1433 @@
+@{
+    ViewData["Title"] = "MedPharm - Expert Medical Care";
+}
+
+@model AppointmentModel
+
+@Html.Partial("_header")
+
+<!-- Hero Section -->
+<section class="animated-section" id="Home">
+    <div class="img-container">
+        <img class="img-doctor" src="~/Images/C1DAB312-7B80-48BF-ABAD-64AF0FDBFC8A_1_201_a.jpeg" alt="Doctor">
+        <div class="text-overlay">
+            <h3 data-i18n="hero_heading" style="color: black;font-size:40px;font-weight: bold;">We Are Here For Your Care</h3><br> 
+            <p data-i18n="hero_text">Your health is our top priority.<br/>
+                Book an appointment today to get expert care and personalized attention<br/>
+                from our experienced medical team.
+                Whether it's a routine checkup <br/>or a specialized consultation,
+                we're here to serve you. <br/>Don't wait schedule your visit now!</p><br>
+            <button class="btn-primary" data-i18n="book_appointment" href="@Url.Action("Index","Home")#Appointment">Book Your Appointment Now</button>
+        </div>
+    </div>
+</section>
+
+<!-- Facilities Section -->
+<section class="animated-section">
+    <div id="demo" class="carousel slide mobile-view" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <section>
+            <div class="text-center sp-doctor">
+                <h1 data-i18n="facilities_heading">We Provide Facilities like</h1>
+            </div>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Images/room.png" width="1100" height="500">
+                    <div class="text-overlayroom">
+                        <h3 data-i18n="facility1_heading">Expert Medical Care & <br>Oxygen Bed Facility</h3>
+                        <p data-i18n="facility1_text"> We provide top-quality healthcare with experienced<br/> medical professionals and specialist doctors <br/>available
+                            for consultations and treatments. <br/>Our hospital is equipped with oxygen beds<br/> to ensure critical care<br/> and emergency
+                            support <br>when needed.<br></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Images/Lab.png" width="1100" height="500">
+                    <div class="text-overlay-labtest">
+                        <h3 data-i18n="facility2_heading">You can get your Lab report at your home </h3><br> 
+                        <p data-i18n="facility2_text">We offer convenient lab test check-ups both at home and
+                            in hospital laboratories. <br>Our at-home service ensures hassle-free sample collection by trained professionals <br> at
+                            your doorstep, providing accurate and timely results. For those who <br>prefer
+                            in-hospital testing, our state-of-the-art laboratory ensures precise <br> diagnostics with expert supervision.
+                        </p><br>
+                        <button class="btn-primary" data-i18n="book_now">Book yours now!</button>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="img-container">
+                        <img class="img-doctor" src="~/Images/onlinemedical.png" alt="Doctor">
+                        <div class="text-overlay-medicine">
+                            <h3 data-i18n="facility3_heading">We Are Here For Your Care</h3><br> 
+                            <p data-i18n="facility3_text">You can conveniently buy medicine online
+                                through our platform or<br/>
+                                visit our hospital pharmacy for <br/> in-person purchases.
+                                Enjoy safe, fast, and reliable <br> access to essential medications.</p><br>
+                            <button class="btn-primary" data-i18n="shop_now">Shop Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </section>
+    </div>
+</section>
+
+<!-- Appointment Section -->
+<section id="Appointment" class="animated-section appointment-section">
+    <div class="container">
+        <div class="appointment-header text-center mb-5">
+            <img class="appointment-icon mb-4" src="~/Images/book.png" alt="Appointment Icon">
+            <h2 class="section-title" data-i18n="appointment_heading">Book Your Appointment</h2>
+            <p class="section-subtitle">Schedule your visit with our expert medical team</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="appointment-card">
+                    <div class="appointment-image">
+                        <img src="~/Images/Appointment doc.png" alt="Doctor" class="img-fluid">
+                    </div>
+                    <div class="appointment-form-container">
+                        <h3 class="form-title" data-i18n="form_heading">Fill The Form To Book Your Appointment Slot</h3>
+                        <form id="appointmentForm" class="appointment-form" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Name">Full Name</label>
+                                        <input type="text" id="Name" name="Name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Phone">Phone Number</label>
+                                        <input type="tel" id="Phone" name="Phone" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Diseases">Medical Condition</label>
+                                        <input type="text" id="Diseases" name="Diseases" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Medicine">Current Medications</label>
+                                        <input type="text" id="Medicine" name="Medicine" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="History">Medical History</label>
+                                <textarea id="History" name="History" rows="3" class="form-control"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Doctor">Select Doctor</label>
+                                        <select id="Doctor" name="Doctor" class="form-control">
+                                            <option value="">--Select Doctor--</option>
+                                            <option value="Dr. John Doe">Dr. John Doe</option>
+                                            <option value="Dr. Smith">Dr. Smith</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="AppointmentTime">Preferred Time</label>
+                                        <input type="datetime-local" id="AppointmentTime" name="AppointmentTime" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="LabReport" class="file-upload-label">Upload Lab Reports (if any)</label>
+                                <div class="custom-file-upload">
+                                    <input type="file" id="LabReport" name="LabReport" class="form-control" accept=".pdf,.jpg,.png">
+                                    <small class="text-muted">Supported formats: PDF, JPG, PNG (Max size: 5MB)</small>
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <button id="payBtn" type="submit" class="btn btn-primary btn-lg" >Book Appointment</button>
+                                <div class="payment-info mt-3">
+                                    <p class="text-danger mb-0">
+                                        <i class="fas fa-info-circle"></i>
+                                        * Make Payment To Book Your Slot <br/>
+                                        * Consulting fees 500rs.
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+ background:#28a745; color:#fff; padding:20px; border-radius:5px; z-index:9999; font-weight:bold;">
+        Appointment Booked Successfully!
+    </div>
+
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div style="color: red; text-align: center;">@ViewBag.ErrorMessage</div>
+    }
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const appointmentForm = document.getElementById("appointmentForm");
+
+            if (!appointmentForm) {
+                console.error("Appointment form not found!");
+                return;
+            }
+
+            appointmentForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(appointmentForm);
+                const amountInPaise = 50000; // ₹500
+
+                fetch("http://localhost:5071/api/Payments/create-order", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ amount: amountInPaise })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.orderId) {
+                            alert("Failed to create Razorpay order.");
+                            return;
+                        }
+
+                        const options = {
+                            key: data.key,
+                            amount: data.amount,
+                            currency: data.currency,
+                            order_id: data.orderId,
+                            name: "Medpharm Appointment",
+                            description: "Consultation Payment",
+                            handler: function (response) {
+                                try {
+                                    formData.append("paymentId", response.razorpay_payment_id);
+                                    formData.append("orderId", response.razorpay_order_id);
+                                    formData.append("signature", response.razorpay_signature);
+
+                                    fetch("http://localhost:5071/api/Appointment/createappointment", {
+                                        method: "POST",
+                                        body: formData,
+                                        credentials: "include"
+                                    })
+                                        .then(async res => {
+                                            if (res.ok) {
+                                                console.log("Appointment saved successfully");
+                                                showSuccessPopup("Appointment booked successfully!");
+                                                appointmentForm.reset();
+                                            } else {
+                                                const errorText = await res.text();
+                                                console.error("Appointment save failed:", errorText);
+                                                alert("Something went wrong:\n" + errorText);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error("DB save error:", error);
+                                            alert("Error saving appointment after payment.");
+                                        });
+                                } catch (e) {
+                                    console.error("Handler error:", e);
+                                }
+                            },
+                            prefill: {
+                                name: document.getElementById("Name").value,
+                                contact: document.getElementById("Phone").value,
+                                email: "test@example.com"
+                            },
+                            theme: {
+                                color: "#3399cc"
+                            }
+                        };
+
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    })
+                    .catch(error => {
+                        console.error("Order creation error:", error);
+                        alert("Error initiating payment.");
+                    });
+            });
+        });
+
+        // Success Popup function
+        function showSuccessPopup(message) {
+            const successPopup = document.getElementById("successPopup");
+            if (successPopup) {
+                console.log("Popup element found");
+                successPopup.textContent = message;
+                successPopup.style.display = "block";
+                setTimeout(() => {
+                    successPopup.style.display = "none";
+                }, 3000);
+            } else {
+                console.error("Popup element NOT found");
+            }
+        }
+    </script>
+
+</section>
+
+<style>
+.appointment-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.appointment-header {
+    margin-bottom: 40px;
+}
+
+.appointment-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.appointment-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-image {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+}
+
+.appointment-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 80%;
+}
+
+.appointment-form-container {
+    padding: 30px;
+    width: 100%;
+}
+
+.form-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.appointment-form .form-group {
+    margin-bottom: 25px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.appointment-form label {
+    color: #34495e;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.appointment-form .form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.appointment-form .form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.custom-file-upload {
+    border: 2px dashed #e9ecef;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 10;
+}
+
+.custom-file-upload input[type="file"] {
+    display: block;
+    width: 100%;
+    height: 10%;
+    padding: 2px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    position: relative;
+    z-index: 20;
+}
+
+.custom-file-upload small {
+    display: block;
+    color: #6c757d;
+    margin-top: 5px;
+    position: relative;
+    z-index: 10;
+}
+
+/* Style for the file input button */
+.custom-file-upload input[type="file"]::-webkit-file-upload-button {
+    background: #3498db;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: 500;
+    position: relative;
+    z-index: 30;
+}
+
+.custom-file-upload input[type="file"] {
+    background: #3498db;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: 500;
+    position: relative;
+    z-index: 30;
+}
+
+.custom-file-upload:hover {
+    border-color: #3498db;
+    background: #f1f9ff;
+}
+
+/* Add a custom label for the file input */
+.file-upload-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #34495e;
+    position: relative;
+    z-index: 10;
+}
+
+select.form-control {
+    width: 100%;
+    height: auto;
+    padding: 12px 15px;
+    position: relative;
+    z-index: 20;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-primary {
+    background: #3498db;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+.payment-info {
+    background: #fff3f3;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+
+</style>
+
+<!-- Doctors Section -->
+<section id="Doctors" class="animated-section">
+    <div class="doctors">
+        <div class="text-center" style="padding-top: 4%">
+            <h1 data-i18n="doctors_heading">Our Specialist Doctors</h1>
+            <p class="text-muted" data-i18n="doctors_subtitle">Meet our experienced and qualified team of medical specialists</p>
+        </div>
+        <div class="container">
+            <div id="doctorCards" class="card-container">
+                
+                <!-- More doctor cards will be added dynamically -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Medical Updates Section -->
+<section id="MedicalUpdates" class="animated-section">
+    <div class="doctors">
+        <div class="text-center" style="padding-top: 4%">
+            <h1 data-i18n="medical_updates_heading">Medical Updates</h1>
+            <p class="text-muted" data-i18n="medical_updates_subtitle">Stay informed with the latest medical news and updates</p>
+        </div>
+        <div id="medicalUpdatesContainer" class="container">
+            <!-- Medical updates will be inserted here dynamically -->
+            <!-- Example medical update format -->
+            <div class="medical-update-card">
+                <div class="row">
+                    
+                </div>
+            </div>
+            <!-- More medical updates will be added dynamically -->
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services section animated-section">
+    <!-- Section Title -->
+    <div class="text-center" style="padding-top: 4%">
+        <h2 data-i18n="services_heading">Services</h2>
+        <p class="text-muted" data-i18n="services_subtitle">Comprehensive healthcare services for all your needs</p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="container mt-5">
+        <div class="row" id="servicesContainer">
+            <!-- Dynamic service cards will be inserted here -->
+        </div>
+    </div>
+    
+</section>
+
+<!-- Patient Testimonials Section -->
+<section id="testimonials" class="py-5 bg-light animated-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 data-i18n="testimonials_heading">Patient Testimonials</h2>
+            <p class="text-muted" data-i18n="testimonials_subtitle">What our patients say about us</p>
+        </div>
+
+        <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">Sarah Johnson</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="card-text">"The care I received at MedPharm was exceptional. The staff was friendly and professional."</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">Michael Rodriguez</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="card-text">"After struggling with back pain for years, I finally found relief thanks to MedPharm's team."</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">Emily Chen</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="card-text">"The at-home lab testing service was incredibly convenient and fast."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">John Smith</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <p class="card-text">"Amazing customer service and knowledgeable doctors."</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">Alice Brown</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="card-text">"Efficient and thorough. The best healthcare experience I've had!"</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card testimonial-card">
+                                <div class="card-body">
+                                    <h5 class="mb-0">David Williams</h5>
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p class="card-text">"I appreciate the professionalism and efficiency of the staff."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Carousel Controls -->
+            <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Health Tips & Articles Section -->
+<section id="HealthTips" class="py-5 bg-white animated-section">
+    <div class="container-fluid px-4 px-md-5">
+        <div class="text-center mb-5">
+            <h2 data-i18n="health_tips_heading">Health Tips & Articles</h2>
+            <p class="mt-3 text-muted" data-i18n="health_tips_subtitle">
+                Stay informed with the latest health advice and medical insights from our experts.
+            </p>
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center" id="healthTipsContainer">
+            <!-- Health tips will be inserted here dynamically -->
+            <!-- Example health tip card -->
+            
+            </div>
+            <!-- More health tip cards will be added dynamically -->
+        </div>
+</section>
+
+<!-- Insurance Information Section -->
+<section id="insurance" class="insurance-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="section-title" data-i18n="insurance_heading">Insurance Information</h2>
+            <div class="title-underline"></div>
+            <p class="section-subtitle" data-i18n="insurance_subtitle">We work with most major insurance providers</p>
+        </div>
+
+        <!-- Insurance Partners Grid -->
+        <div class="insurance-partners">
+            <div class="row g-5 justify-content-center">
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/aditya.png" alt="Aditya Birla">
+                        </div>
+                        <div class="partner-info">
+                            <h4>Aditya Birla</h4>
+                            <span class="partner-type">Health Insurance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/care.png" alt="Care">
+                        </div>
+                        <div class="partner-info">
+                            <h4>Care</h4>
+                            <span class="partner-type">Medical Coverage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/LIC-Logo.png" alt="LIC">
+                        </div>
+                        <div class="partner-info">
+                            <h4>LIC</h4>
+                            <span class="partner-type">Life Insurance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/tata.jpg.webp" alt="TATA AIG">
+                        </div>
+                        <div class="partner-info">
+                            <h4>TATA AIG</h4>
+                            <span class="partner-type">Health Insurance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/bajaj.jpg" alt="Bajaj Allianz">
+                        </div>
+                        <div class="partner-info">
+                            <h4>Bajaj Allianz</h4>
+                            <span class="partner-type">Medical Coverage</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="partner-card mb-4">
+                        <div class="partner-logo">
+                            <img src="~/Images/icici.jpg" alt="ICICI Lombard">
+                        </div>
+                        <div class="partner-info">
+                            <h4>ICICI Lombard</h4>
+                            <span class="partner-type">Health Insurance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insurance FAQ Section -->
+        <div class="insurance-faq mt-5">
+            <div class="faq-header text-center">
+                <h3 class="faq-title">Frequently Asked Questions</h3>
+                <p class="faq-subtitle">Find answers to common insurance-related questions</p>
+            </div>
+            <div class="faq-container">
+                <div class="accordion" id="insuranceFAQ">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                <i class="fas fa-shield-alt"></i>
+                                How do I verify my insurance coverage?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                You can verify your insurance coverage by contacting our billing department at (555) 123-4567 or by providing your insurance information during appointment scheduling. Our staff will verify your coverage and inform you of any out-of-pocket expenses.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                <i class="fas fa-hand-holding-medical"></i>
+                                What if I don't have insurance?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                We offer self-pay options and payment plans for patients without insurance. We also have a sliding fee scale based on income for eligible patients. Our financial counselors can help you explore all available options.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                <i class="fas fa-user-md"></i>
+                                Do I need a referral to see a specialist?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                Referral requirements vary by insurance plan. Many PPO plans do not require referrals, while HMO plans typically do. We recommend checking with your insurance provider about their referral policy before scheduling an appointment with a specialist.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insurance-contact text-center mt-5">
+            <p>Don't see your insurance provider? Contact our billing department for assistance.</p>
+            <a href="#contact" class="btn btn-primary btn-lg">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+<style>
+.insurance-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.section-header {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background: #3498db;
+    margin: 0 auto 20px;
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+.partner-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.partner-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.partner-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.partner-card:hover::before {
+    opacity: 1;
+}
+
+.partner-logo {
+    margin-bottom: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.partner-logo img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.partner-card:hover .partner-logo img {
+    transform: scale(1.1);
+}
+
+.partner-info h4 {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.partner-type {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.insurance-faq {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.faq-header {
+    margin-bottom: 30px;
+}
+
+.faq-header h3 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.faq-header p {
+    color: #7f8c8d;
+}
+
+.faq-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.faq-subtitle {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 12px;
+    border-radius: 8px !important;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.accordion-button {
+    padding: 15px 20px;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #2c3e50;
+    background: white;
+    border: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background: #3498db;
+    color: white;
+    box-shadow: none;
+}
+
+.accordion-button i {
+    margin-right: 12px;
+    font-size: 1rem;
+}
+
+.accordion-button:not(.collapsed) i {
+    color: white;
+}
+
+.accordion-body {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    color: #34495e;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Prevent scrolling */
+html {
+    scroll-behavior: auto;
+}
+</style>
+
+<!-- Emergency Protocols Section -->
+<section id="EmergencyProtocols" class="emergency-protocols animated-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-heading display-4 fw-bold" data-i18n="emergency_heading">Emergency Protocols</h2>
+            <p class="lead text-muted" data-i18n="emergency_desc">Know what to do in medical emergencies</p>
+            <div class="emergency-alert-badge mt-3">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span data-i18n="emergency_alert">Medical Emergency Guidance</span>
+            </div>
+        </div>
+
+        <div class="emergency-tabs-container">
+            <!-- Emergency Protocols Tabs -->
+            <ul class="nav emergency-nav mb-4" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active" data-target="cardiac" role="tab">
+                        <i class="fas fa-heartbeat text-danger"></i>
+                        <span data-i18n="cardiac_arrest">Cardiac Arrest</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-target="stroke" role="tab">
+                        <i class="fas fa-brain text-info"></i>
+                        <span data-i18n="stroke">Stroke</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-target="bleeding" role="tab">
+                        <i class="fas fa-tint text-danger"></i>
+                        <span data-i18n="severe_bleeding">Severe Bleeding</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-target="choking" role="tab">
+                        <i class="fas fa-wind text-orange"></i>
+                        <span data-i18n="choking">Choking</span>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Contents -->
+            <div class="tab-content p-4 bg-white shadow rounded">
+                <!-- Cardiac Arrest -->
+                <div class="tab-pane active" id="cardiac" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-danger mb-4"><i class="fas fa-heartbeat mr-2"></i> Cardiac Arrest Emergency Protocol</h3>
+                            
+                            <div class="alert alert-danger mb-4">
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle mr-2"></i> <span data-i18n="warning">Warning</span></h5>
+                                <p>Call emergency services (911) immediately. Every second counts.</p>
+                            </div>
+                            
+                            <h5 class="mt-4 text-primary"><span data-i18n="steps">Steps to Follow</span>:</h5>
+                            <ol class="mt-3">
+                                <li class="mb-2">Check if the person is responsive by tapping them and shouting "Are you okay?"</li>
+                                <li class="mb-2">If unresponsive, check for breathing - look, listen, and feel for 10 seconds.</li>
+                                <li class="mb-2">If not breathing or only gasping, call emergency services (911) and get an AED if available.</li>
+                                <li class="mb-2">Begin CPR: Place the heel of one hand on the center of the chest, place your other hand on top, and perform chest compressions.</li>
+                                <li class="mb-2">Push hard and fast at a rate of 100-120 compressions per minute, allowing the chest to recoil completely between compressions.</li>
+                                <li class="mb-2">If trained, give 2 rescue breaths after every 30 compressions.</li>
+                                <li class="mb-2">Continue CPR until emergency services arrive or the person shows signs of life.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stroke -->
+                <div class="tab-pane" id="stroke" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-info mb-4"><i class="fas fa-brain mr-2"></i> Stroke Emergency Protocol</h3>
+                            
+                            <div class="alert alert-danger mb-4">
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle mr-2"></i> <span data-i18n="warning">Warning</span></h5>
+                                <p>Call emergency services (911) immediately. Time is brain - every minute counts.</p>
+                            </div>
+                            
+                            <h5 class="mt-4 text-primary">Remember the acronym F.A.S.T.:</h5>
+                            <ul class="list-group list-group-flush mt-3">
+                                <li class="list-group-item"><strong>F</strong>ace: Ask the person to smile. Does one side of the face droop?</li>
+                                <li class="list-group-item"><strong>A</strong>rms: Ask the person to raise both arms. Does one arm drift downward?</li>
+                                <li class="list-group-item"><strong>S</strong>peech: Ask the person to repeat a simple phrase. Is their speech slurred or strange?</li>
+                                <li class="list-group-item"><strong>T</strong>ime: If you observe any of these signs, call 911 immediately.</li>
+                            </ul>
+                            
+                            <h5 class="mt-4 text-primary"><span data-i18n="steps">Steps to Follow</span>:</h5>
+                            <ol class="mt-3">
+                                <li class="mb-2">Note the time when symptoms started - this is critical information for medical personnel.</li>
+                                <li class="mb-2">Keep the person calm and still.</li>
+                                <li class="mb-2">Do not give them anything to eat or drink.</li>
+                                <li class="mb-2">If the person is unresponsive and not breathing normally, begin CPR.</li>
+                                <li class="mb-2">Do not give aspirin (unlike for heart attacks) unless directed by medical personnel.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Severe Bleeding -->
+                <div class="tab-pane" id="bleeding" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-danger mb-4"><i class="fas fa-tint mr-2"></i> Severe Bleeding Emergency Protocol</h3>
+                            
+                            <div class="alert alert-danger mb-4">
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle mr-2"></i> <span data-i18n="warning">Warning</span></h5>
+                                <p>Call emergency services (911) immediately while applying first aid measures.</p>
+                            </div>
+                            
+                            <h5 class="mt-4 text-primary"><span data-i18n="steps">Steps to Follow</span>:</h5>
+                            <ol class="mt-3">
+                                <li class="mb-2">Apply pressure directly to the wound using a clean cloth, towel, or gauze.</li>
+                                <li class="mb-2">If possible, elevate the wounded area above the level of the heart.</li>
+                                <li class="mb-2">Continue applying steady, firm pressure for at least 15 minutes.</li>
+                                <li class="mb-2">If bleeding continues and you have access to a tourniquet, apply it according to instructions.</li>
+                                <li class="mb-2">Keep the person still and warm.</li>
+                                <li class="mb-2">Watch for signs of shock: pale skin, rapid breathing, weakness, confusion.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Choking -->
+                <div class="tab-pane" id="choking" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-orange mb-4"><i class="fas fa-wind mr-2"></i> Choking Emergency Protocol</h3>
+                            
+                            <div class="alert alert-danger mb-4">
+                                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle mr-2"></i> <span data-i18n="warning">Warning</span></h5>
+                                <p>If the person is unable to speak, cough, or breathe, act immediately as this is a life-threatening emergency.</p>
+                            </div>
+                            
+                            <h5 class="mt-4 text-primary"><span data-i18n="steps">Steps to Follow</span>:</h5>
+                            <ol class="mt-3">
+                                <li class="mb-2">Ask "Are you choking?" If the person nods yes and cannot speak or is coughing weakly, proceed with emergency care.</li>
+                                <li class="mb-2">Stand behind the person and wrap your arms around their waist.</li>
+                                <li class="mb-2">Make a fist with one hand and place it slightly above the navel (belly button).</li>
+                                <li class="mb-2">Grab your fist with your other hand and press hard into the abdomen with a quick, upward thrust (the Heimlich maneuver).</li>
+                                <li class="mb-2">Repeat thrusts until the object is expelled or the person becomes unconscious.</li>
+                                <li class="mb-2">If the person becomes unconscious, lower them to the ground and begin CPR.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <p class="text-muted"><small>These protocols are for emergency guidance only and do not replace professional medical training. Always seek professional medical help in an emergency.</small></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.emergency-nav .nav-link {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 10px 20px;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.emergency-nav .nav-link.active {
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+}
+
+.emergency-nav .nav-link:hover {
+    color: #3498db;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Emergency Protocols Tab Functionality
+    const emergencyTabs = document.querySelectorAll('.emergency-nav .nav-link');
+    
+    emergencyTabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const targetId = this.getAttribute('data-target');
+            
+            // Remove active class from all tabs and panes
+            emergencyTabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding pane
+            this.classList.add('active');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    // Prevent default accordion behavior
+    const accordionButtons = document.querySelectorAll('.accordion-button');
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('data-bs-target'));
+            const isCollapsed = this.classList.contains('collapsed');
+            
+            // Close all other accordion items
+            document.querySelectorAll('.accordion-collapse').forEach(item => {
+                if (item !== target) {
+                    item.classList.remove('show');
+                    item.previousElementSibling.querySelector('.accordion-button').classList.add('collapsed');
+                }
+            });
+            
+            // Toggle current accordion item
+            if (isCollapsed) {
+                target.classList.add('show');
+                this.classList.remove('collapsed');
+            } else {
+                target.classList.remove('show');
+                this.classList.add('collapsed');
+            }
+        });
+    });
+});
+</script>
+
+<!-- Waitlist Section -->
+<section id="waitlist" class="py-5 bg-primary text-white animated-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 data-i18n="waitlist_heading">Join Our Waitlist</h2>
+                <p data-i18n="waitlist_text">Want to be notified when appointments become available with your preferred doctor? Join our waitlist and we'll contact you as soon as there's an opening.</p>
+                <ul class="list-unstyled mt-4">
+                    <li class="mb-2"><i class="fas fa-check-circle text-light mr-2"></i> <span data-i18n="waitlist_point1">Receive priority notifications</span></li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-light mr-2"></i> <span data-i18n="waitlist_point2">Choose your preferred time slots</span></li>
+                    <li class="mb-2"><i class="fas fa-check-circle text-light mr-2"></i> <span data-i18n="waitlist_point3">No obligation to book</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-primary mb-4" data-i18n="waitlist_form_heading">Waitlist Registration</h4>
+                        <form id="waitlistForm" novalidate>
+                            <div class="form-group">
+                                <label for="waitlistName" data-i18n="waitlist_name">Full Name</label>
+                                <input type="text" class="form-control" id="waitlistName" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="waitlistEmail" data-i18n="waitlist_email">Email Address</label>
+                                <input type="email" class="form-control" id="waitlistEmail" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="waitlistPhone" data-i18n="waitlist_phone">Phone Number</label>
+                                <input type="tel" class="form-control" id="waitlistPhone" placeholder="Phone Number" required pattern="[0-9]{10}">
+                            </div>
+                            <div class="form-group">
+                                <label for="waitlistDoctor" data-i18n="waitlist_doctor">Preferred Doctor</label>
+                                <select class="form-control" id="waitlistDoctor">
+                                    <option value="">Any Available Doctor</option>
+                                    <option value="Dr. John Doe">Dr. John Doe - Cardiology</option>
+                                    <option value="Dr. Smith">Dr. Smith - Neurology</option>
+                                    <option value="Dr. Patel">Dr. Patel - Orthopedics</option>
+                                    <option value="Dr. Rodriguez">Dr. Rodriguez - Pediatrics</option>
+                                    <option value="Dr. Chen">Dr. Chen - Dermatology</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="waitlistTimeframe" data-i18n="waitlist_timeframe">Preferred Timeframe</label>
+                                <select class="form-control" id="waitlistTimeframe">
+                                    <option value="Morning">Morning (8am - 12pm)</option>
+                                    <option value="Afternoon">Afternoon (12pm - 5pm)</option>
+                                    <option value="Evening">Evening (5pm - 8pm)</option>
+                                    <option value="Any">Any Time</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-4" data-i18n="waitlist_submit">Join Waitlist</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Us Section -->
+<section id="contact" class="py-5 animated-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 data-i18n="contact_heading">Contact Us</h2>
+            <p class="text-muted" data-i18n="contact_subtitle">Get in touch with our team</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="text-primary mb-4" data-i18n="contact_form_heading">Send us a Message</h4>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName" data-i18n="contact_name">Full Name</label>
+                                <input type="text" class="form-control" id="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail" data-i18n="contact_email">Email Address</label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject" data-i18n="contact_subject">Subject</label>
+                                <input type="text" class="form-control" id="contactSubject">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage" data-i18n="contact_message">Message</label>
+                                <textarea class="form-control" id="contactMessage" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-4" data-i18n="contact_submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="text-primary mb-4" data-i18n="contact_info_heading">Contact Information</h4>
+                        <div class="d-flex mb-4">
+                            <div class="contact-icon mr-3">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 data-i18n="contact_address">Address</h5>
+                                <p>Medpharm Hospital, opp. Vakil Shaheb Bridge, <br>Boap Ahmedabad 380058</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="contact-icon mr-3">
+                                <i class="fas fa-phone fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 data-i18n="contact_phone">Phone</h5>
+                                <p><a href="tel:+9898076085" class="text-dark">+91 9898076085</a></p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="contact-icon mr-3">
+                                <i class="fas fa-envelope fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 data-i18n="contact_email">Email</h5>
+                                <p><a href="mailto:medpharm123@gmail.com" class="text-dark">medpharm123@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="contact-icon mr-3">
+                                <i class="fas fa-clock fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 data-i18n="contact_hours">Working Hours</h5>
+                                <p>Monday - Sunday: 9:30am - 9:00pm<br>
+                                <strong>24/7 Services:</strong> ICU, Emergency, Pharmacy</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Google Maps Embed -->
+                        <div class="mt-4">
+                            <h5 data-i18n="contact_find_us">Find Us</h5>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.9461644336186!2d72.49680001496834!3d23.0244230799387!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b278e046fa5%3A0x5c9e3e6e782cc9c8!2sVakil%20Saheb%20Bridge%2C%20Ahmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1578237974081!5m2!1sen!2sin" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-5 bg-primary text-white text-center animated-section">
+    <div class="container">
+        <h2 class="mb-3" data-i18n="cta_heading">Ready to Experience Quality Healthcare?</h2>
+        <p class="mb-4" data-i18n="cta_text">Book an appointment today and take the first step towards better health.</p>
+        <a href="#appointment" class="btn btn-light btn-lg" data-i18n="book_appointment">Book Your Appointment</a>
+    </div>
+</section>
+
+@Html.Partial("_footer")
+
+<script>
+    $(document).ready(function() {
+        // Initialize emergency tabs
+        initializeEmergencyTabs();
+        
+        // Set up animation for sections
+        animateSections();
+        
+        // Setup language functionality
+        setupLanguage();
+    });
+</script>

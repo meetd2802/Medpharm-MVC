@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@Html.Partial("_header")
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            let isValid = true;
+
+            // Username Validation: Letters, numbers, and at most one underscore (No special characters)
+            let username = $("#username").val();
+            let usernameRegex = /^(?!_)([a-zA-Z0-9]+_?[a-zA-Z0-9]+)$/;
+            if (!usernameRegex.test(username)) {
+                alert("❌ Invalid Username! Use letters, numbers, and at most one underscore.");
+                isValid = false;
+            }
+
+            // Phone Number Validation: Must be exactly 10 digits
+            let phone = $("#phone").val();
+            let phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("❌ Invalid Phone Number! Enter a 10-digit number.");
+                isValid = false;
+            }
+
+            // Password Validation: Min 6 characters, 1 uppercase, 1 number, 1 special character
+            let password = $("#password").val();
+            let confirmPassword = $("#confirm_password").val();
+            let passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{6,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("❌ Weak Password! Minimum 6 characters, at least 1 uppercase, 1 number, and 1 special character.");
+                isValid = false;
+            }
+
+            // Confirm Password Validation
+            if (password !== confirmPassword) {
+                alert("❌ Passwords do not match!");
+                isValid = false;
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+<section>
+    <div>
+        <img class="contact" src="~/Images/MacBook Air - 1.png">
+    </div>
+    <div class="text-boxreg">
+        <form method="post">
+            <h3 class="text-center">REGISTER HERE</h3>
+            <table>
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td><input type="text" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="username">Username:</label></td>
+                    <td><input type="text" id="username" name="username" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Phone:</label></td>
+                    <td><input type="tel" id="phone" name="phone" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Enter Password:</label></td>
+                    <td><input type="password" id="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td><label for="confirm_password">Re-enter Password:</label></td>
+                    <td><input type="password" id="confirm_password" name="confirm_password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: center;"><br/>
+                        <button type="submit" class="btn-primary" style="margin-left: 15%">REGISTER</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</section>
+
+
+@Html.Partial("_footer")

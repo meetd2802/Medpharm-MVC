@@ -1,0 +1,90 @@
+@{
+    ViewData["Title"] = "Payments";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-money-bill-wave me-2"></i>Payment Records
+                </h6>
+                <div class="total-revenue">
+                    <span class="badge bg-success">
+                        Total Revenue: ₹<span id="totalRevenue">0</span>
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="paymentsTable">
+                        <thead>
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>Patient Name</th>
+                                <th>Doctor</th>
+                                <th>Date & Time</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Receipt Template (Hidden) -->
+<div id="receiptTemplate" style="display: none;">
+    <div class="receipt-container" style="padding: 20px; max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif;">
+        <div class="receipt-header" style="text-align: center; border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 20px;">
+           <h2 style="color: #2c3e50; margin: 0;">MedPharm Healthcare</h2>
+            <p style="color: #7f8c8d; margin: 5px 0;">Payment Receipt</p>
+        </div>
+        
+        <div class="receipt-body" style="margin-bottom: 20px;">
+            <div class="receipt-row" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <div class="receipt-info">
+                    <p><strong>Receipt No:</strong> <span id="receiptId"></span></p>
+                    <p><strong>Date:</strong> <span id="receiptDate"></span></p>
+                </div>
+                <div class="receipt-info">
+                    <p><strong>Patient Name:</strong> <span id="receiptPatientName"></span></p>
+                    <p><strong>Doctor:</strong> <span id="receiptDoctor"></span></p>
+                </div>
+            </div>
+            
+            <div class="receipt-details" style="margin: 20px 0;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <th style="padding: 10px; text-align: left;">Description</th>
+                        <th style="padding: 10px; text-align: right;">Amount</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Consultation Fee</td>
+                        <td style="padding: 10px; text-align: right;">₹500.00</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="receipt-total" style="text-align: right; margin-top: 20px;">
+                <p style="font-size: 1.2em;"><strong>Total Amount:</strong> ₹500.00</p>
+            </div>
+        </div>
+        
+        <div class="receipt-footer" style="text-align: center; border-top: 2px solid #333; padding-top: 20px; margin-top: 20px;">
+            <p style="color: #7f8c8d; margin: 5px 0;">Thank you for choosing MedPharm Healthcare</p>
+            <p style="color: #7f8c8d; margin: 5px 0;">For any queries, please contact: +91-9898076086</p>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/payments.js"></script>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml") 

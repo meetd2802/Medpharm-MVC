@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Appointment Page";
+}
+
+@Html.Partial("_header")
+
+<section>
+    <div class="bookap text-center">
+        <img class="img-responsive" src="~/Images/book.png" asp-append-version="true" alt="Logo">
+        Book Your Appointment Here
+    </div>
+</section>
+
+<section>
+    <div>
+        <img class="img-appointmentdoc" src="~/Images/Appointment doc.png"/>
+        
+        <div class="text-boxappointment">
+            <form action="" method="post">
+                <p class="text-center"><h3>Fill The Form To Book Your Appointment Slot</h3></p>
+                <table>
+                    <tr>
+                        <td><label for="name">Name:</label></td>
+                        <td><input type="text" id="name" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="phone">Phone:</label></td>
+                        <td><input type="tel" id="phone" name="phone" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="diseases">Diseases:</label></td>
+                        <td><input type="text" id="diseases" name="diseases"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="history">Past Medical History:</label></td>
+                        <td><textarea id="history" name="history" rows="3"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><label for="medicine">Taking any medicine:</label></td>
+                        <td><input type="text" id="medicine" name="medicine"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="lab">Lab Report (if any):</label></td>
+                        <td><input type="file" id="lab" name="lab"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="doctor">Select Doctor for Consulting:</label></td>
+                        <td>
+                            <select id="doctor" name="doctor">
+                                <option value="">--Select Doctor--</option>
+                                <option value="dr_john">Dr. John Doe</option>
+                                <option value="dr_smith">Dr. Smith</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="time">Select Time:</label></td>
+                        <td><input type="datetime-local" id="time" name="time"></td>
+                    </tr> 
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button type="submit" class="btn-primary">Book Appointment</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+@Html.Partial("_footer")

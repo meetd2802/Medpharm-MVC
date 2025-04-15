@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Waitlist Page";
+}
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<div class="text-center">
+    <h3>People in Waitlist</h3>
+</div>
+
+<section>
+    <div class="container">
+        <div class="table-container">
+            <table class="table-design" id="waitlistTable">
+                <thead>
+                <tr>
+                    <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                    <th><i class="fas fa-user me-1"></i>Full Name</th>
+                    <th><i class="fas fa-envelope me-1"></i>Email Address</th>
+                    <th><i class="fas fa-phone me-1"></i>Phone Number</th>
+                    <th><i class="fas fa-user-md me-1"></i>Preferred Doctor</th>
+                    <th><i class="fas fa-clock me-1"></i>Preferred Timeframe</th>
+                    <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                </tr>
+                </thead>
+                <tbody id="waitlistTableBody">
+                <!-- Dynamic content for waitlist entries will go here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/waitlist.js"></script> <!-- Include external JS file for waitlist operations -->
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

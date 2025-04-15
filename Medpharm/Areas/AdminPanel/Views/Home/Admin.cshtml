@@ -1,0 +1,173 @@
+@{
+    ViewData["Title"] = "Admin Management";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("adminPageLink").addEventListener("click", async function (event) {
+            event.preventDefault(); // Stop default navigation
+
+            let adminId = sessionStorage.getItem("AdminId");
+            let adminRole = sessionStorage.getItem("AdminRole");
+
+            console.log("🔍 Admin ID:", adminId);
+            console.log("🔍 Admin Role:", adminRole);
+
+            if (!adminId || !adminRole) {
+                console.log("⚠️ No session data found! Fetching from server...");
+
+                try {
+                    let response = await fetch("/AdminPanel/Admin/GetLoggedInAdminId");
+                    let data = await response.json();
+
+                    if (data.success) {
+                        adminId = data.adminId;
+                        adminRole = data.adminRole;
+
+                        sessionStorage.setItem("AdminId", adminId);
+                        sessionStorage.setItem("AdminRole", adminRole);
+
+                        console.log("✅ Data fetched from server:", { adminId, adminRole });
+                    } else {
+                        alert("❌ You are not logged in. Please log in first.");
+                        window.location.href = "http://localhost:5062/AdminPanel/Home/Index"; // Redirect to index page
+                        return;
+                    }
+                } catch (error) {
+                    console.error("❌ Error fetching admin data:", error);
+                    alert("❌ Unable to verify access. Please try again.");
+                    window.location.href = "http://localhost:5062/AdminPanel/Home/Index"; // Redirect to index page
+                    return;
+                }
+            }
+
+            // ✅ Check Role Before Redirecting
+            if (adminRole === "CEO" || adminRole === "Manager") {
+                window.location.href = "/AdminPanel/Home/Admin"; // Navigate to Admin page
+            } else {
+                alert("❌ Access Denied! You do not have permission to access this page.");
+                window.location.href = "http://localhost:5062/AdminPanel/Home/Index"; // Redirect unauthorized user to Index page
+            }
+        });
+    });
+</script>
+
+
+
+
+<section class="animated-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-user-shield me-2"></i>Manage Admins
+            </h3>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddAdmin", "Home")'">
+                <i class="fas fa-plus me-2"></i>ADD ADMIN
+            </button>
+        </div>
+
+        <!-- Alert for notifications -->
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="actionAlert">
+            <span id="alertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table-design" id="adminTable">
+                    <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                        <th><i class="fas fa-user me-1"></i>Full Name</th>
+                        <th><i class="fas fa-user-tag me-1"></i>Username</th>
+                        <th><i class="fas fa-envelope me-1"></i>Email</th>
+                        <th><i class="fas fa-user-cog me-1"></i>Role</th>
+                        <th><i class="fas fa-phone me-1"></i>Phone</th>
+                        <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                    <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/admin.js"></script> <!-- Link to the external JavaScript file for admin operations -->
+<style>
+    .table-design {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;  /* Ensures consistent column width */
+    }
+
+    .table-design th, .table-design td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+    }
+
+    .table-design th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+        width: 120px;  /* Fixed width for better alignment */
+    }
+
+    .buttongreen, .buttondanger, .button-change-password {
+        padding: 5px 10px;
+        margin: 2px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        border: none;
+        width: 100%;  /* Full-width for consistent styling */
+        box-sizing: border-box;
+    }
+
+    .buttongreen {
+        background-color: #28a745;
+    }
+
+    .buttongreen:hover {
+        background-color: #218838;
+    }
+
+    .buttondanger {
+        background-color: #dc3545;
+    }
+
+    .buttondanger:hover {
+        background-color: #c82333;
+    }
+
+    .button-change-password {
+        background-color: #007bff;
+        margin-top: 5px;
+    }
+
+    .button-change-password:hover {
+        background-color: #0056b3;
+    }
+
+
+</style>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

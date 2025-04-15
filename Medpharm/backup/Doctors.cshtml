@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Doctors Page";
+}
+
+@Html.Partial("_header")
+
+<section>
+    <div class="text-center" ><h1>Our Specialist Doctors</h1></div>
+    <div class="container">
+        <div class="card-container">
+
+            <div class="card">
+                <img src="~/Images/Doc1.png" class="card-img-top" alt="Dr. Sujal Joshi">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Sujal Joshi</h5>
+                    <p class="card-text">Specialist in General Medicine with over 10 years of experience.</p>
+                    <a onclick="location.href='@Url.Action("Appointment","Home")'" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="~/Images/doc2.png" class="card-img-top" alt="Dr. John">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. John</h5>
+                    <p class="card-text">Cardiologist with expertise in heart disease management and surgery.</p>
+                    <a onclick="location.href='@Url.Action("Appointment","Home")'" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="~/Images/doc3.png" class="card-img-top" alt="Dr. Jane Smith">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Jane Smith</h5>
+                    <p class="card-text">Pediatrician specializing in child healthcare and wellness.</p>
+                    <a onclick="location.href='@Url.Action("Appointment","Home")'" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="~/Images/doc4.png" class="card-img-top" alt="Dr. Raj Patel">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Raj Patel</h5>
+                    <p class="card-text">Orthopedic Surgeon with advanced skills in joint replacement.</p>
+                    <a onclick="location.href='@Url.Action("Appointment","Home")'" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="~/Images/doc4.png" class="card-img-top" alt="Dr. Raj Patel">
+                <div class="card-body">
+                    <h5 class="card-title">Dr. Raj Patel</h5>
+                    <p class="card-text">Orthopedic Surgeon with advanced skills in joint replacement.</p>
+                    <a onclick="location.href='@Url.Action("Appointment","Home")'" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<br/>
+@Html.Partial("_footer")

@@ -1,0 +1,172 @@
+@{
+    ViewData["Title"] = "Register";
+}
+
+@Html.Partial("login_header")
+
+<script src="script.js"></script>
+
+<div class="custom-container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row custom-card w-75 rounded">
+        <!-- Left Side - Image -->
+        <div class="col-md-6 p-0">
+            <img src="~/Images/registeruser2.webp" class="custom-img rounded-left" alt="Register Image">
+        </div>
+
+        <!-- Right Side - Registration Form -->
+        <div class="col-md-6 custom-bg p-5 rounded-right">
+            <h3 class="text-center mb-4 custom-title">REGISTER</h3>
+
+            <form method="post">
+                <div class="form-group">
+                    <label for="fname">Full Name:</label>
+                    <input type="text" id="fname" name="fname" class="form-control custom-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="uname">Username:</label>
+                    <input type="text" id="uname" name="uname" class="form-control custom-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control custom-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" class="form-control custom-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Enter Password:</label>
+                    <input type="password" id="password" name="password" class="form-control custom-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Re-enter Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control custom-input" required>
+                </div>
+
+                <button type="submit" class="btn custom-btn btn-block">REGISTER</button>
+            </form>
+
+            <hr class="custom-divider">
+
+            <h5 class="text-center mt-3 custom-text">
+                Already have an account? <a href="@Url.Action("Login","Home")" class="custom-link">Login Here</a>
+            </h5>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_footer")
+
+<script>
+
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            event.preventDefault();
+
+            // Password validation
+            let password = $("#password").val();
+            let confirmPassword = $("#confirm_password").val();
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Gather form data
+            let userData = {
+                fullName: $("#fname").val(),
+                userName: $("#uname").val(),
+                email: $("#email").val(),
+                role: "User",  // Assign default role if needed
+                phone: $("#phone").val(),
+                password: password
+            };
+
+            console.log("Form Data:", userData);
+
+            // AJAX request
+            $.ajax({
+                url: "http://localhost:5071/api/Admin/createadmin", // API endpoint
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(userData),
+                success: function (response) {
+                    console.log("Success:", response);
+                    alert("User registered successfully!");
+                    window.location.href = "http://localhost:5062/Home/Login"; // Redirect after success
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error Status:", status);
+                    console.error("Error Message:", error);
+                    console.log("Response Text:", xhr.responseText);
+                    alert("An error occurred: " + xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+
+<style>
+    /* Custom Registration Page Styling */
+    .custom-container {
+        height: 100vh;
+    }
+
+    .custom-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .custom-card {
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-bg {
+        background-color: white;
+    }
+
+    .custom-btn {
+        background-color: #007bff;
+        border: none;
+        font-weight: bold;
+        padding: 10px;
+    }
+
+    .custom-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .custom-divider {
+        border-top: 1px solid #ccc;
+    }
+
+    .custom-title {
+        font-family: 'Times New Roman';
+        font-weight: bold;
+    }
+
+    .custom-input {
+        border-radius: 5px;
+    }
+
+    .custom-link {
+        color: red;
+        text-decoration: none;
+    }
+
+    .custom-link:hover {
+        text-decoration: underline;
+    }
+
+    .custom-text {
+        font-family: 'Times New Roman';
+    }
+</style>
+
+

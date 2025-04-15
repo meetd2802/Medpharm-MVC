@@ -1,0 +1,339 @@
+.img-responsive
+{
+    height: 120px;
+    width: auto;
+    margin-right: 10px;
+
+}
+
+.nav{
+    background-color: lightskyblue;
+}
+
+.content{
+    color: black;
+    font-size: large;
+}
+
+.img-doctor
+{
+    width: 1439px;
+}
+
+.img-container{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 500px;
+    transform: translate(-50%, -50%);/*it is used to center the box*/
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.text-overlayroom {
+    position: absolute;
+    top: 50%;
+    left: 500px;
+    transform: translate(-50%, -50%);/*it is used to center the box*/
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.btn-primary
+{
+    border-radius: 20px;
+}
+
+.sp-doctor
+{
+    text-decoration: underline;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+
+.medical-container
+{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    flex-wrap:wrap;
+}
+.footer
+{
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    flex-direction:row;
+    gap: 30%;
+    padding: 40px;
+}
+
+.footer-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+}
+
+.footer-list a {
+    color: black;
+}
+
+.footer-list a:hover {
+    color: blue;
+}
+
+.img-container{
+    height: 80%; 
+}
+
+.bookap{
+    background-color: white;
+    font-size: xx-large;
+
+}
+
+.bookap p{
+    font-size: 30px;
+}
+.img-appointmentdoc{
+    height: 50%;
+    width: 40%;
+}
+
+.text-boxappointment{
+        position: absolute;
+        top: 73%;
+        width: 50%;
+        left: 900px;
+        transform: translate(-50%, -50%);/*it is used to center the box*/
+        color: black;
+        font-size: 20px;
+        padding: 10px 20px;
+        border-radius: 10px;
+    background-color: lightskyblue;
+}
+
+.med-heading{
+    background-color: greenyellow;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 50%;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+/* Name styling */
+.name {
+    font-size: 22px;
+    font-weight: bold;
+   
+}
+
+/* Image styling */
+.image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Description styling */
+.description {
+    font-size: 16px;
+    color: #333;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+.card {
+    width: 18rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.card img {
+    width: 100%;
+    height: 350px; /* Ensures all images have the same height */
+    object-fit: cover; /* Ensures the image fills the space without distortion */
+}
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-text {
+    min-height: 60px; /* Ensures description heights are equal */
+}
+.btn {
+    width: 100%; /* Ensures buttons are aligned properly */
+}
+
+.contact{
+    width: 90%;
+}
+
+.text-boxcontact{
+    position: absolute;
+    top: 70%;
+    width: 50%;
+    left: 600px;
+    transform: translate(-50%, -50%);/*it is used to center the box*/
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: lightskyblue;
+}
+
+.login
+{
+    display: inline-flex;
+    position: absolute;
+    justify-content: flex-end;
+    margin-left: 90%;
+    color: #0a53be;
+    margin-top: 8px;
+    border-radius: 8px;
+}
+
+
+.login-text {
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.logo {
+    font-size: 50px;
+    color: white;
+    gap: 2px;
+}
+
+.text-boxlogin{
+    font-family: "Times New Roman";
+    position: absolute;
+    justify-content: center;
+    top: 50%;
+    width: 40%;
+    left: 600px;
+    transform: translate(-50%, -50%);/*it is used to center the box*/
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    background: rgba(173, 216, 230, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blurred background effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+.text-boxreg{
+    font-family: "Roboto Light";
+    position: absolute;
+    justify-content: center;
+    top: 50%;
+    width: 40%;
+    left: 600px;
+    transform: translate(-50%, -50%);/*it is used to center the box*/
+    color: black;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    height: 50%;
+    background: rgba(173, 216, 230, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blurred background effect */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+/* Media Queries */
+
+/* Large Screens (1024px) */
+@media (max-width: 1024px) {
+    .text-overlay {
+        font-size: 18px;
+        padding: 10px;
+        width: 85%;
+    }
+    .img-doctor {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+    .text-overlay {
+        font-size: 16px;
+        width: 90%;
+    }
+    .btn-primary {
+        font-size: 14px;
+    }
+}
+
+/* Mobile Phones (480px) */
+@media (max-width: 480px) {
+    .text-overlay {
+        font-size: 14px;
+        width: 95%;
+    }
+    .btn-primary {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+/* Small Mobile Phones (320px) */
+@media (max-width: 320px) {
+    .text-overlay {
+        font-size: 12px;
+        width: 100%;
+    }
+    .btn-primary {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+}

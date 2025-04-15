@@ -1,0 +1,36 @@
+@{
+    ViewData["Title"] = "Medical Updates";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+
+<section class="animated-section">
+    <div class="container">
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-heartbeat me-2"></i>Manage Update's
+            </h3>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddUpdates","Home")'">
+                <i class="fas fa-plus me-2"></i>Add Update
+            </button>
+        </div>
+        <div class="table-container">
+            <table class="table-design" id="medicalUpdatesTable">
+                <thead>
+                <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                <th><i class="fas fa-heading me-1"></i>Name</th>
+                <th><i class="fas fa-image me-1"></i>Image</th>
+                <th><i class="fas fa-align-left me-1"></i>Description</th>
+                <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                </thead>
+                <tbody id="medicalUpdatesBody"> <!-- ✅ This is the correct tbody ID -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script src="~/js/medicalupdate.js"></script> <!-- Include external JS file -->
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

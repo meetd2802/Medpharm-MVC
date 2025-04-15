@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Index Page";
+}
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-stethoscope me-2"></i>Manage Services
+            </h3>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddServices","Home")'">
+                <i class="fas fa-plus me-2"></i>ADD SERVICE
+            </button>
+        </div>
+
+        <!-- Alert for notifications -->
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="serviceAlert">
+            <span id="serviceAlertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table-design" id="serviceTable">
+                    <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                        <th><i class="fas fa-image me-1"></i>Image</th>
+                        <th><i class="fas fa-clipboard-list me-1"></i>Service Name</th>
+                        <th><i class="fas fa-info-circle me-1"></i>Description</th>
+                        <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody id="servicesTable">
+                    <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/js/service.js"></script> <!-- Include external JS file -->
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

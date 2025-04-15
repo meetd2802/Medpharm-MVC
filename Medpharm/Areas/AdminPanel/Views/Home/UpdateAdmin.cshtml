@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "Update Admin Details";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+<div class="container">
+    <div class="split-container">
+        <!-- Left Image Section -->
+        <div class="image-section">
+            <img src="~/Images/admin.png" alt="Admin Image" />
+        </div>
+
+        <!-- Right Form Section -->
+        <div class="form-section">
+            <h1 class="text-center">Update Admin Details</h1>
+            <form id="updateAdminForm" method="post" onsubmit="updateAdmin(event)">
+                <input type="hidden" id="adminId" name="adminId" /> <!-- Hidden ID field -->
+                <table class="form-table">
+                    <tr>
+                        <td>Full Name:</td>
+                        <td><input type="text" id="fname" name="fname" placeholder="Full Name" required /></td>
+                    </tr>
+                    <tr>
+                        <td>User Name:</td>
+                        <td><input type="text" id="uname" name="uname" placeholder="Username" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="email" id="email" name="email" placeholder="Email" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Role:</td>
+                        <td><input type="text" id="role" name="role" placeholder="Role" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td><input type="number" id="phone" name="phone" placeholder="phone" required /></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" id="password" name="password" placeholder="Password" readonly /></td> <!-- Static Password Field -->
+                    </tr>
+                </table>
+                <button type="submit" class="button">Update Admin</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/updateadmin.js"></script>
+
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-color: #f4f4f9;
+    }
+
+    .split-container {
+        display: flex;
+        width: 80%;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .image-section {
+        width: 50%;
+    }
+
+    .image-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-section {
+        width: 50%;
+        padding: 40px;
+    }
+
+    .form-table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .form-table td {
+        padding: 10px;
+    }
+
+    .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

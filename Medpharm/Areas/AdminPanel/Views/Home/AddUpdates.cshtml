@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Medical Updates Page";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-notes-medical me-2"></i>Add Medical Update</h3>
+            </div>
+            <div class="card-body">
+                <form id="medicalUpdateForm" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="MedicalUpdateName" class="form-label">
+                            <i class="fas fa-user me-2"></i>Update Title
+                        </label>
+                        <input type="text" id="MedicalUpdateName" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="MedicalUpdateImage" class="form-label">
+                            <i class="fas fa-image me-2"></i>Upload Image
+                        </label>
+                        <input type="file" id="MedicalUpdateImage" name="MedicalUpdateImage" class="form-control" accept="image/*" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description
+                        </label>
+                        <textarea id="Description" name="description" class="form-control" rows="5" required></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i>Add Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Medical Update Added Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Adding Medical Update!
+        </div>
+    </div>
+</section>
+
+<script src="~/js/addmedicalupdates.js"></script>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

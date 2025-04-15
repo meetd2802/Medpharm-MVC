@@ -1,0 +1,139 @@
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@Html.Partial("login_header")
+<section>
+    <div class="container-fluid" style="max-width: 95%;">
+        <!-- Page Heading -->
+
+        <!-- Alert for API errors or loading status -->
+        <div id="profileAlert" class="alert alert-info d-none mb-4"></div>
+
+        <!-- Appointment Detail Container -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-profile shadow mb-4">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Appointment Details</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Full Name</div>
+                                    <div class="profile-field-value" id="name">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Phone</div>
+                                    <div class="profile-field-value" id="phone">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Appointment Time</div>
+                                    <div class="profile-field-value" id="appointmentTime">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Diseases</div>
+                                    <div class="profile-field-value" id="diseases">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Doctor</div>
+                                    <div class="profile-field-value" id="doctor">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Payment ID</div>
+                                    <div class="profile-field-value" id="paymentId">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Order ID</div>
+                                    <div class="profile-field-value" id="orderId">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Signature</div>
+                                    <div class="profile-field-value" id="signature">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><br/>
+</section>
+
+<script src="~/js/appointmentdetails.js"></script>
+
+
+<style>
+    /* Profile page specific styles */
+    .profile-field {
+        margin-bottom: 10px;
+    }
+
+    .profile-field-label {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #6c757d;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .profile-field-value {
+        font-size: 1rem;
+    }
+
+    /* Align elements neatly */
+    .card {
+        min-height: 100%;
+    }
+
+    /* Smaller Change Password button */
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    /* Editable field styles */
+    .profile-field-value.editable {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: text;
+    }
+    
+    .profile-field-value.editable:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
+
+<!-- Load the admin profile JavaScript -->
+<script src="/js/userProfile.js"></script>
+<script src="~/js/appointmentdetails.js"></script>
+
+@Html.Partial("User_footer")

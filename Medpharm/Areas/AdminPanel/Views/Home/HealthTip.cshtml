@@ -1,0 +1,150 @@
+@{
+    ViewData["Title"] = "Index Page";
+}
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3 class="section-title">
+                <i class="fas fa-heartbeat me-2"></i>Manage Health Tips
+            </h3>
+            <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddHealthTip","Home")'">
+                <i class="fas fa-plus me-2"></i>ADD HEALTH TIP
+            </button>
+        </div>
+        
+        <!-- Alert for notifications -->
+        <div class="alert alert-success alert-dismissible fade show d-none" role="alert" id="healthTipAlert">
+            <span id="healthTipAlertMessage"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table-design" id="healthTipsTable">
+                    <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                        <th><i class="fas fa-image me-1"></i>Image</th>
+                        <th><i class="fas fa-tag me-1"></i>Category</th>
+                        <th><i class="fas fa-heading me-1"></i>Title</th>
+                        <th><i class="fas fa-align-left me-1"></i>Description</th>
+                        <th><i class="fas fa-calendar-alt me-1"></i>Date</th>
+                        <th><i class="fas fa-cogs me-1"></i>Operations</th>
+                    </tr>
+                    </thead>
+                    <tbody id="healthTipsTableBody">
+                    <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function () {
+        fetchHealthTips();
+        setupSignalR(); // ✅ Set up real-time updates
+    });
+
+    function fetchHealthTips() {
+        $.ajax({
+            url: "http://localhost:5071/api/HealthTip/getallhealthtips",
+            type: "GET",
+            cache: false,
+            success: function (data) {
+                console.log("API Response:", data);
+
+                let healthTips = Array.isArray(data) ? data : data.healthTips || data.list || Object.values(data)[0];
+
+                if (!Array.isArray(healthTips)) {
+                    console.error("Expected an array but received:", data);
+                    alert("Invalid response format from API.");
+                    return;
+                }
+
+                console.log("Extracted Health Tips List:", healthTips);
+                populateHealthTipsTable(healthTips);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching health tips:", xhr.status, error);
+                alert("Failed to load health tips. Check API URL.");
+            }
+        });
+    }
+
+    function deleteHealthTip(id) {
+        console.log("Attempting to delete ID:", id);
+
+        id = parseInt(id, 10); // Ensure ID is a number
+        console.log("Parsed ID:", id, "Type:", typeof id);
+
+        if (!id || isNaN(id)) {
+            console.error("Invalid Health Tip ID:", id);
+            alert("Invalid Health Tip ID.");
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete this health tip?")) return;
+
+        $.ajax({
+            url: `http://localhost:5071/api/HealthTip/deletehealthtip/${id}`,
+            type: "DELETE",
+            success: function (response) {
+                console.log("Delete Response:", response);
+                alert(response.message || "Health Tip deleted successfully!");
+                fetchHealthTips();
+            },
+            error: function (xhr) {
+                console.error("Delete Error:", xhr.responseText);
+                alert("Failed to delete health tip. Please try again.");
+            }
+        });
+    }
+
+    function editHealthTip(id) {
+        window.location.href = `/AdminPanel/Home/UpdateHealthTip?id=${id}`;
+    }
+
+    function addHealthTip() {
+        window.location.href = `/AdminPanel/Home/AddHealthTip`;
+    }
+
+    function populateHealthTipsTable(healthTips) {
+        let tableBody = $("#healthTipsTableBody");
+        tableBody.empty();
+
+        healthTips.forEach((tip) => {
+            let imageUrl = tip.imageUrl ? `http://localhost:5071${tip.imageUrl.replace("~", "")}` : "http://localhost:5071/Images/default.png";
+
+            console.log(`Rendering Image: ${imageUrl}`);
+
+            let row = `<tr>
+                <td>${tip.id}</td>
+                <td><img src="${imageUrl}" onerror="this.onerror=null;this.src='/Images/default.png';" class="card-img-top" alt="${tip.title}" style="width:50px;height:50px;"></td>
+                <td>${tip.category}</td>
+                <td>${tip.title}</td>
+                <td>${tip.description}</td>
+                <td>${tip.datePosted}</td>
+                <td>
+                    <button class="buttondanger" onclick="deleteHealthTip(${tip.id})">DELETE</button>
+                    <button class="button" onclick="editHealthTip(${tip.id})">Update</button>
+                </td>
+            </tr>`;
+            tableBody.append(row);
+        });
+    }
+
+    // ✅ Function to notify frontend about health tip updates
+    function notifyHealthTipUpdate() {
+        fetch("http://localhost:5071/api/HealthTip/notify", { method: "POST" })
+            .catch(error => console.error("Error notifying frontend:", error));
+    }
+</script>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

@@ -1,0 +1,155 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    
+    <!-- jQuery and Bootstrap JS -->
+
+    <script src="~/js/medical_site.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+    <!-- Logo Bar -->
+    <div class="logo-bar">
+        <div class="container d-flex justify-content-between align-items-center py-2">
+            <a class="logo-brand" href="#">
+                <img src="~/Images/logo.png" alt="MedPharm Logo" height="100">
+            </a>
+            <div class="contact-info d-none d-md-flex align-items-center">
+                <div class="contact-item mr-4">
+                    <i class="fas fa-phone-alt text-primary mr-2"></i>
+                    <span>+91 9898076085</span>
+                </div>
+                <div class="contact-item">
+                    <i class="far fa-clock text-primary mr-2"></i>
+                    <span>9:30am - 9:00pm</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Home" data-i18n="nav_home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Doctors" data-i18n="nav_doctors">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Appointment" data-i18n="nav_appointment">Appointment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#MedicalUpdates" data-i18n="nav_updates">Medical Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services" data-i18n="nav_services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials" data-i18n="nav_testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#HealthTips" data-i18n="nav_health_tips">Health Tips</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#insurance" data-i18n="nav_insurance">Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#EmergencyProtocols" data-i18n="nav_emergency">Emergency</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact" data-i18n="nav_contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <!-- User Profile / Login Buttons -->
+                    <div class="user-profile ml-3">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle mr-1"></i> <span id="userName">My Account</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right p-3" aria-labelledby="userDropdown">
+                                <a id="loginBtn" class="dropdown-item" href="@Url.Action("Login", "Home")">Login</a>
+                                <button id="logoutBtn" class="dropdown-item" style="display: none;">Logout</button>
+                                <a id="profileButton" class="dropdown-item" href="@Url.Action("UserProfile", "Home")">Profile</a>
+                                <a id="appointment" class="dropdown-item" href="@Url.Action("Appointmentdetails", "Home")">Appointment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    <script>
+    $(document).ready(function () {
+        let fullName = sessionStorage.getItem("fullName");
+        let userName = sessionStorage.getItem("userName");
+        let email = sessionStorage.getItem("email");
+
+        console.log("Retrieved from sessionStorage:", { fullName, userName, email });
+
+        if (userName) {
+            $("#username").text(userName);
+            $("#fullName").text(fullName || "N/A");
+            $("#userUsername").text(userName);
+            $("#email").text(email || "N/A");
+
+            $("#loginBtn").hide();
+            $("#logoutBtn").show();
+        } else {
+            $("#loginBtn").show();
+            $("#logoutBtn").hide();
+        }
+
+        $("#logoutBtn").click(function () {
+            sessionStorage.clear();
+            window.location.href = "/Home/Login";
+        });
+    });
+</script>
+
+    <script>
+    $(document).ready(function () {
+        // Ensure CSS is loaded correctly
+        if (!$("#dynamicCSS").length) {
+            $("head").append('<link rel="stylesheet" href="/css/style.css?v=' + new Date().getTime() + '">');
+        }
+
+        // Show body after styles are applied
+        $("body").css("opacity", "1");
+
+        // Check if user is logged in
+        let userName = sessionStorage.getItem("userName");
+        if (userName) {
+            $("#loginBtn").hide();
+            $("#logoutBtn").show();
+            $(".btn-primary").prop("disabled", false); // Enable booking
+        } else {
+            $("#loginBtn").show();
+            $("#logoutBtn").hide();
+            $(".btn-primary").prop("disabled", true); // Disable booking
+        }
+
+        // Logout functionality
+        $("#logoutBtn").click(function () {
+            sessionStorage.clear();
+            window.location.href = "/Home/Login"; // Redirect after logout
+        });
+    });
+</script>

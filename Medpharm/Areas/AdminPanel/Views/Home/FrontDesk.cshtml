@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Index Page";
+}
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+<div class="container">
+    <div class="section-header">
+        <h3 class="section-title">
+            <i class="fas fa-heartbeat me-2"></i>Manage Appointment's
+        </h3>
+        <button class="btn btn-primary" onclick="window.location.href='@Url.Action("AddAppointment","Home")'">
+            <i class="fas fa-plus me-2"></i>Add Appointment
+        </button>
+    </div>
+    <div class="table-container">
+        <table class="table-design" id="appointmentTable">
+            <thead>
+            <tr>
+                <th><i class="fas fa-hashtag me-1"></i>ID</th>
+                <th><i class="fas fa-user me-1"></i>Name</th>
+                <th><i class="fas fa-notes-medical me-1"></i>Diseases</th>
+                <th><i class="fas fa-clock me-1"></i>Date & Time</th>
+                <th><i class="fas fa-cogs me-1"></i>Operations</th>
+            </tr>
+            </thead>
+            <tbody id="appointmentsTable">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+
+<script src="~/js/frontdesk.js"></script> <!-- Include external JS file -->
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

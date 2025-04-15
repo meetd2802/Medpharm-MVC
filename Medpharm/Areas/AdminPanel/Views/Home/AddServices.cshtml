@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Doctor Page";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title text-center mb-0">
+                    <i class="fas fa-stethoscope me-2"></i>Add New Service
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="serviceForm" enctype="multipart/form-data" method="post" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Image Preview -->
+                            <div class="mb-4 text-center">
+                                <div class="image-preview-container" style="margin-bottom: 1rem;">
+                                    <img id="imagePreview" class="img-fluid rounded" style="max-height: 200px; display: none;" alt="Service Preview">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ServiceImage" class="form-label">
+                                        <i class="fas fa-image me-2"></i>Service Image
+                                    </label>
+                                    <input type="file" class="form-control" id="ServiceImage" name="ServiceImage"
+                                           accept=".jpg,.png,.jpeg" required>
+                                    <div class="invalid-feedback">Please select an image for the service.</div>
+                                    <small class="form-text text-muted">Choose an image that represents this medical service.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Service Name -->
+                            <div class="mb-3">
+                                <label for="ServiceName" class="form-label">
+                                    <i class="fas fa-clipboard-list me-2"></i>Service Name
+                                </label>
+                                <input type="text" id="ServiceName" name="ServiceName" class="form-control" required
+                                       placeholder="e.g., Cardiology, Pediatrics, Laboratory Tests">
+                                <div class="invalid-feedback">Please enter a service name.</div>
+                            </div>
+
+                            <!-- Service Description -->
+                            <div class="mb-3">
+                                <label for="Description" class="form-label">
+                                    <i class="fas fa-align-left me-2"></i>Description
+                                </label>
+                                <textarea id="Description" name="Description" class="form-control" rows="5" required
+                                          placeholder="Provide a detailed description of this service..."></textarea>
+                                <div class="invalid-feedback">Please provide a description for the service.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Add Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" style="display:none;">Service Added Successfully!</div>
+
+    <!-- Error Popup -->
+    <div id="errorPopup" style="display:none;">Error Adding Service!</div>
+</section>
+
+<script src="@Url.Content("~/js/addservice.js")"></script>

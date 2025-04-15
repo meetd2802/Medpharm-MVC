@@ -1,0 +1,61 @@
+@{
+    ViewData["Title"] = "Doctor Page";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 500px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-user-md me-2"></i>Add Doctor</h3>
+            </div>
+            <div class="card-body">
+                <form id="doctorForm" enctype="multipart/form-data" method="post">
+
+                    <div class="mb-3 text-center">
+                        <label for="DoctorImage" class="form-label">
+                            <i class="fas fa-camera me-2"></i>Doctor's Image
+                        </label>
+                        <input type="file" id="DoctorImage" name="DoctorImage" class="form-control" accept=".jpg,.png,.jpeg">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="DoctorName" class="form-label">
+                            <i class="fas fa-user me-2"></i>Doctor's Name
+                        </label>
+                        <input type="text" id="DoctorName" name="DoctorName" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="Speciality" class="form-label">
+                            <i class="fas fa-stethoscope me-2"></i>Speciality
+                        </label>
+                        <input type="text" id="Speciality" name="Speciality" class="form-control" required>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i>Add Doctor
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Doctor Added Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Adding Doctor!
+        </div>
+    </div>
+</section>
+
+<script src="@Url.Content("~/js/adddoctors.js")"></script>
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

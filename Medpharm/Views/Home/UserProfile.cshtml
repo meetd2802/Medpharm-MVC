@@ -1,0 +1,202 @@
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@Html.Partial("login_header")
+<section>
+    <div class="container-fluid" style="max-width: 95%;">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">User Profile</h1>
+        </div>
+
+        <!-- Alert for API errors or loading status -->
+        <div id="profileAlert" class="alert alert-info d-none mb-4"></div>
+
+        <!-- Profile Information Containers -->
+        <div class="row">
+            <!-- Left Side: Personal Info -->
+            <div class="col-lg-6">
+                <div class="card-profile shadow mb-8">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Personal Information</h6>
+                        <a href="#" id="editButton" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil me-1"></i> Edit
+                        </a>
+                        <a href="#" id="saveButton" class="btn btn-sm btn-success" style="display: none;">
+                            <i class="bi bi-save me-1"></i> Save
+                        </a>
+                        <a href="#" id="undoButton" class="btn btn-sm btn-secondary" style="display: none;">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Undo
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Full Name</div>
+                                    <div class="profile-field-value" id="adminFullName">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Username</div>
+                                    <div class="profile-field-value" id="adminUserName">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Email</div>
+                                    <div class="profile-field-value" id="adminEmail">Loading...</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Phone</div>
+                                    <div class="profile-field-value" id="adminPhone">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="profile-field">
+                                    <div class="profile-field-label">Role</div>
+                                    <div class="profile-field-value" id="adminRole">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Right Side: Security -->
+            <div class="col-lg-6">
+                <div class="card-profile shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Security</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center mb-3">
+                            <div class="col-md-8">
+                                <h6 class="mb-1">Password</h6>
+                                <p class="text-muted small">Last changed: <span id="lastPasswordChange">Unknown</span></p>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <button id="changePasswordBtn" href="@Url.Action("ChangePassword","Home")">Change Password</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h6 class="mb-1">Two-Factor Authentication</h6>
+                                <p class="text-muted small">Status: <span class="badge bg-warning text-dark">Not Enabled</span></p>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <button class="btn btn-sm btn-outline-secondary px-2 py-1" disabled>
+                                    <i class="bi bi-shield-lock me-1"></i> Setup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+</section>
+
+<script>
+    $(document).ready(function () {
+        let adminId = getAdminId(); // Get the Admin ID from session storage
+
+        if (!adminId) {
+            console.error("❌ No Admin ID found! Profile cannot be loaded.");
+            return;
+        }
+
+        fetchAdminProfile(adminId);
+
+        // Attach event listener to Change Password button
+        $("#changePasswordBtn").click(function () {
+            let storedAdminId = getAdminId(); // Fetch again when button is clicked
+            if (!storedAdminId) {
+                alert("❌ Admin ID not found! Cannot proceed to change password.");
+                return;
+            }
+            console.log("🔄 Redirecting to Change Password Page with ID:", storedAdminId);
+            window.location.href = `/AdminPanel/Home/ChangePassword?id=${storedAdminId}`;
+        });
+    });
+
+    // Function to Get Admin ID from Session Storage
+    function getAdminId() {
+        let adminIdFromSession = sessionStorage.getItem("adminId");
+        let adminIdFromStorage = localStorage.getItem("adminId");
+        let adminIdFromUrl = new URLSearchParams(window.location.search).get("id");
+
+        console.log("🔍 Admin ID from Session:", adminIdFromSession);
+        console.log("🔍 Admin ID from Local Storage:", adminIdFromStorage);
+        console.log("🔍 Admin ID from URL:", adminIdFromUrl);
+
+        return adminIdFromSession || adminIdFromStorage || adminIdFromUrl;
+    }
+</script>
+
+
+
+<style>
+    /* Profile page specific styles */
+    .profile-field {
+        margin-bottom: 10px;
+    }
+
+    .profile-field-label {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #6c757d;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+    }
+
+    .profile-field-value {
+        font-size: 1rem;
+    }
+
+    /* Align elements neatly */
+    .card {
+        min-height: 100%;
+    }
+
+    /* Smaller Change Password button */
+    .btn-sm {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+    
+    /* Editable field styles */
+    .profile-field-value.editable {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: text;
+    }
+    
+    .profile-field-value.editable:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+</style>
+
+<!-- Load the admin profile JavaScript -->
+<script src="/js/userProfile.js"></script>
+<script src="/js/updateuserprofile.js"></script>
+
+@Html.Partial("User_footer")

@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "Update Health Tip";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-heartbeat me-2"></i> Update Health Tip</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateHealthTipForm" enctype="multipart/form-data">
+                    <input type="hidden" id="healthTipId">
+                    <input type="hidden" id="existingImagePath">
+
+                    <!-- Current Image Preview -->
+                    <div class="mb-3 text-center">
+                        <label class="form-label"><i class="fas fa-image me-2"></i>Current Image</label>
+                        <div>
+                            <img id="healthTipImagePreview" src="" alt="Health Tip Image"
+                                 class="rounded border shadow-sm"
+                                 style="width: 150px; height: 150px; display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Upload New Image -->
+                    <div class="mb-3">
+                        <label for="HealthTipImage" class="form-label">
+                            <i class="fas fa-upload me-2"></i>Upload New Image
+                        </label>
+                        <input type="file" id="HealthTipImage" name="HealthTipImage" class="form-control" accept="image/*">
+                        <small class="form-text text-muted">Leave empty to keep the current image</small>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="Category" class="form-label">
+                            <i class="fas fa-list-alt me-2"></i>Category
+                        </label>
+                        <select id="Category" name="Category" class="form-select" required>
+                            <option value="Nutrition">Nutrition</option>
+                            <option value="Exercise">Exercise</option>
+                            <option value="Mental Health">Mental Health</option>
+                            <option value="General Health">General Health</option>
+                        </select>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="Title" class="form-label">
+                            <i class="fas fa-heading me-2"></i>Title
+                        </label>
+                        <input type="text" id="Title" name="Title" class="form-control" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">
+                            <i class="fas fa-align-left me-2"></i>Description
+                        </label>
+                        <textarea id="Description" name="Description" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Author -->
+                    <div class="mb-3">
+                        <label for="Author" class="form-label">
+                            <i class="fas fa-user me-2"></i>Author
+                        </label>
+                        <input type="text" id="Author" name="Author" class="form-control" required>
+                    </div>
+
+                    <!-- Date Posted -->
+                    <div class="mb-3">
+                        <label for="DatePosted" class="form-label">
+                            <i class="fas fa-calendar-alt me-2"></i>Date Posted
+                        </label>
+                        <input type="date" id="DatePosted" name="DatePosted" class="form-control" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="button" onclick="updateHealthTip()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Health Tip
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Health Tip Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Health Tip!
+        </div>
+    </div>
+</section>
+
+
+<script src="~/js/updatehealthtip.js"></script> <!-- Link to external JS -->
+
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

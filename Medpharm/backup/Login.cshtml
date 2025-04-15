@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@Html.Partial("_header")
+
+<section>
+    <div>
+        <img class="contact" style="height: 650px" src="~/Images/MacBook Air - 1.png">
+    </div>
+    <div class="text-boxlogin">
+    <div>
+        <form method="post">
+            <p><h3 class="text-center" style="font-family: 'Times New Roman'">LOGIN</h3></p>
+            <table style="height: 20px">
+                <tr>
+                    <td><label for="name">Username:</label></td>
+                    <td><input type="text" id="name" name="username" required></td>
+                </tr>
+                <tr>
+                    <td><label>Enter Password:</label></td>
+                    <td><input type="password" name="password" required=""/></td>
+                </tr>
+                <tr>
+                    <td><a style="color: red">Forgot Password ?</a></td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button type="submit" class="btn-primary" style="padding-left: 10px;margin-left: 45%">LOGIN</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        
+        <p><h5 style="font-family: 'Times New Roman'" class="text-center">New User Register Here <br/> <a style="color:darkblue" onclick="location.href='@Url.Action("Register","Home")'">Register</a></h5></p>
+     
+    </div>
+    </div>
+</section>
+
+
+@Html.Partial("_footer")

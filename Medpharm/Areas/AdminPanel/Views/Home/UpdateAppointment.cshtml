@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Update Appointment";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<div class="text-center"><h3>Update Appointment</h3></div>
+
+<section>
+    <div class="container">
+        <form id="updateAppointmentForm">
+            <input type="hidden" id="appointmentId" />
+
+            <label>Name:</label>
+            <input type="text" id="name" required />
+
+            <label>Diseases:</label>
+            <input type="text" id="diseases" required />
+
+            <label>Appointment Time:</label>
+            <input type="datetime-local" id="appointmentTime" required />
+            
+            <button type="button" onclick="updateAppointment()">Update Appointment</button>
+        </form>
+    </div>
+</section>
+
+<script src="~/js/updateAppointment.js"></script> <!-- Link JS file -->
+
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")
