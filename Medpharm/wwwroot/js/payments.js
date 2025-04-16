@@ -1,6 +1,25 @@
 $(document).ready(function() {
     fetchAppointments();
+    
+    // Add event listeners for search functionality
+    $('#searchButton').click(function() {
+        searchPayments();
+    });
+    
+    $('#clearSearch').click(function() {
+        $('#searchInput').val('');
+        fetchAppointments(); // Reset to show all appointments
+    });
+    
+    // Allow pressing Enter to search
+    $('#searchInput').keypress(function(e) {
+        if (e.which === 13) { // Enter key
+            searchPayments();
+        }
+    });
 });
+
+let allAppointments = []; // Store all appointments for searching
 
 function fetchAppointments() {
     $.ajax({
@@ -8,9 +27,11 @@ function fetchAppointments() {
         type: 'GET',
         success: function(response) {
             if (response && Array.isArray(response)) {
+                allAppointments = response; // Store all appointments
                 populatePaymentsTable(response);
                 calculateTotalRevenue(response);
             } else if (response && response.dataList) {
+                allAppointments = response.dataList; // Store all appointments
                 populatePaymentsTable(response.dataList);
                 calculateTotalRevenue(response.dataList);
             } else {
@@ -25,9 +46,45 @@ function fetchAppointments() {
     });
 }
 
+function searchPayments() {
+    const searchTerm = $('#searchInput').val().toLowerCase().trim();
+    
+    if (!searchTerm) {
+        // If search term is empty, show all appointments
+        populatePaymentsTable(allAppointments);
+        calculateTotalRevenue(allAppointments);
+        return;
+    }
+    
+    // Filter appointments based on search term
+    const filteredAppointments = allAppointments.filter(appointment => {
+        return (
+            (appointment.appointmentId && appointment.appointmentId.toString().includes(searchTerm)) ||
+            (appointment.name && appointment.name.toLowerCase().includes(searchTerm)) ||
+            (appointment.doctor && appointment.doctor.toLowerCase().includes(searchTerm)) ||
+            (appointment.phone && appointment.phone.toString().includes(searchTerm))
+        );
+    });
+    
+    // Update table with filtered results
+    populatePaymentsTable(filteredAppointments);
+    calculateTotalRevenue(filteredAppointments);
+}
+
 function populatePaymentsTable(appointments) {
     const tableBody = $('#paymentsTableBody');
     tableBody.empty();
+
+    if (appointments.length === 0) {
+        // Show "No results found" message if no appointments match the search
+        const noResultsRow = `
+            <tr>
+                <td colspan="6" class="text-center">No payment records found matching your search criteria.</td>
+            </tr>
+        `;
+        tableBody.append(noResultsRow);
+        return;
+    }
 
     appointments.forEach(appointment => {
         const row = `
@@ -105,6 +162,13 @@ function downloadReceipt(appointmentId, patientName, doctor, appointmentTime) {
                             padding: 10px;
                             text-align: left;
                         }
+                        .receipt-details tr {
+                            border-bottom: 1px solid #ddd;
+                        }
+                        .receipt-total {
+                            text-align: right;
+                            margin-top: 20px;
+                        }
                         .receipt-footer {
                             text-align: center;
                             border-top: 2px solid #333;
@@ -121,8 +185,8 @@ function downloadReceipt(appointmentId, patientName, doctor, appointmentTime) {
                         window.print();
                         window.onafterprint = function() {
                             window.close();
-                        }
-                    }
+                        };
+                    };
                 </script>
             </body>
         </html>

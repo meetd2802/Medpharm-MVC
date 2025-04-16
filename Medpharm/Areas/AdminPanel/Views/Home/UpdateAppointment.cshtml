@@ -4,28 +4,71 @@
 
 @Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
 
-<div class="text-center"><h3>Update Appointment</h3></div>
-
-<section>
+<section class="animated-section">
     <div class="container">
-        <form id="updateAppointmentForm">
-            <input type="hidden" id="appointmentId" />
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Update Appointment</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateAppointmentForm">
+                    <input type="hidden" id="appointmentId" />
 
-            <label>Name:</label>
-            <input type="text" id="name" required />
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user me-2"></i>Name
+                        </label>
+                        <input type="text" id="name" class="form-control" required />
+                    </div>
 
-            <label>Diseases:</label>
-            <input type="text" id="diseases" required />
+                    <div class="mb-3">
+                        <label for="diseases" class="form-label">
+                            <i class="fas fa-notes-medical me-2"></i>Diseases
+                        </label>
+                        <input type="text" id="diseases" class="form-control" required />
+                    </div>
 
-            <label>Appointment Time:</label>
-            <input type="datetime-local" id="appointmentTime" required />
-            
-            <button type="button" onclick="updateAppointment()">Update Appointment</button>
-        </form>
+                    <div class="mb-3">
+                        <label for="appointmentTime" class="form-label">
+                            <i class="fas fa-clock me-2"></i>Appointment Time
+                        </label>
+                        <input type="datetime-local" id="appointmentTime" class="form-control" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="status" class="form-label">
+                            <i class="fas fa-clipboard-check me-2"></i>Status
+                        </label>
+                        <select id="status" class="form-select" required>
+                            <option value="booked">Booked</option>
+                            <option value="pending">Pending</option>
+                            <option value="Done">Check- up Done</option>
+                            <option value="Updated & booked">Booking update and booked</option>
+                            <option value="Updated & pending">Booking update and pending</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="button" onclick="updateAppointment()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Appointment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Appointment Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Appointment!
+        </div>
     </div>
 </section>
 
 <script src="~/js/updateAppointment.js"></script> <!-- Link JS file -->
-
 
 @Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml")

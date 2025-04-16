@@ -16,7 +16,7 @@ function fetchAppointmentDetails(appointmentId) {
             $("#name").val(appointmentData.name);
             $("#diseases").val(appointmentData.diseases);
             $("#appointmentTime").val(new Date(appointmentData.appointmentTime).toISOString().slice(0, 16));
-            $("#Status").val(appointmentData.status); // Set the status in dropdown
+            $("#status").val(appointmentData.status); // Set the status in dropdown
         },
         error: function () {
             alert("Error fetching appointment details.");
@@ -28,7 +28,7 @@ function updateAppointment() {
     // Update only the necessary fields while keeping others unchanged
     appointmentData.name = $("#name").val();
     appointmentData.diseases = $("#diseases").val();
-    appointmentData.status = $("#Status").val(); // Get status from dropdown
+    appointmentData.status = $("#status").val(); // Get status from dropdown
     appointmentData.appointmentTime = $("#appointmentTime").val()
         ? new Date($("#appointmentTime").val()).toISOString()
         : appointmentData.appointmentTime;

@@ -115,9 +115,9 @@ header {
 .navbar-light .navbar-nav .nav-link {
     color: black;
     padding: 1rem 1.25rem;
-    font-weight: 450;
+    font-weight: 460;
     transition: all 0.2s ease;
-    font-size: 11px;
+    font-size: 10px;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -720,4 +720,14 @@ header {
         flex-direction: column;
         width: 100%;
     }
+}
+
+/* Action buttons in tables */
+.action-buttons {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.action-buttons button {
+    margin: 0 5px;
 }

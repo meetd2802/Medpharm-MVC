@@ -6,69 +6,25 @@
 
 @Html.Partial("_header")
 
-<!-- Hero Section -->
-<section class="animated-section" id="Home">
-    <div class="img-container">
-        <img class="img-doctor" src="~/Images/C1DAB312-7B80-48BF-ABAD-64AF0FDBFC8A_1_201_a.jpeg" alt="Doctor">
-        <div class="text-overlay">
-            <h3 data-i18n="hero_heading" style="color: black;font-size:40px;font-weight: bold;">We Are Here For Your Care</h3><br> 
-            <p data-i18n="hero_text">Your health is our top priority.<br/>
-                Book an appointment today to get expert care and personalized attention<br/>
-                from our experienced medical team.
-                Whether it's a routine checkup <br/>or a specialized consultation,
-                we're here to serve you. <br/>Don't wait schedule your visit now!</p><br>
-            <button class="btn-primary" data-i18n="book_appointment" href="@Url.Action("Index","Home")#Appointment">Book Your Appointment Now</button>
-        </div>
-    </div>
-</section>
-
 <!-- Facilities Section -->
-<section class="animated-section">
+<section class="animated-section adjust">
     <div id="demo" class="carousel slide mobile-view" data-ride="carousel">
         <ul class="carousel-indicators">
             <li data-target="#demo" data-slide-to="0" class="active"></li>
             <li data-target="#demo" data-slide-to="1"></li>
             <li data-target="#demo" data-slide-to="2"></li>
         </ul>
-
         <section>
-            <div class="text-center sp-doctor">
-                <h1 data-i18n="facilities_heading">We Provide Facilities like</h1>
-            </div>
-
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="~/Images/room.png" width="1100" height="500">
-                    <div class="text-overlayroom">
-                        <h3 data-i18n="facility1_heading">Expert Medical Care & <br>Oxygen Bed Facility</h3>
-                        <p data-i18n="facility1_text"> We provide top-quality healthcare with experienced<br/> medical professionals and specialist doctors <br/>available
-                            for consultations and treatments. <br/>Our hospital is equipped with oxygen beds<br/> to ensure critical care<br/> and emergency
-                            support <br>when needed.<br></p>
-                    </div>
+                    <img src="~/Images/2 Ayushmaan bharat_final.png">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/Images/Lab.png" width="1100" height="500">
-                    <div class="text-overlay-labtest">
-                        <h3 data-i18n="facility2_heading">You can get your Lab report at your home </h3><br> 
-                        <p data-i18n="facility2_text">We offer convenient lab test check-ups both at home and
-                            in hospital laboratories. <br>Our at-home service ensures hassle-free sample collection by trained professionals <br> at
-                            your doorstep, providing accurate and timely results. For those who <br>prefer
-                            in-hospital testing, our state-of-the-art laboratory ensures precise <br> diagnostics with expert supervision.
-                        </p><br>
-                        <button class="btn-primary" data-i18n="book_now">Book yours now!</button>
-                    </div>
+                    <img src="~/Images/6 Blood Centre (3).png">
                 </div>
                 <div class="carousel-item">
                     <div class="img-container">
-                        <img class="img-doctor" src="~/Images/onlinemedical.png" alt="Doctor">
-                        <div class="text-overlay-medicine">
-                            <h3 data-i18n="facility3_heading">We Are Here For Your Care</h3><br> 
-                            <p data-i18n="facility3_text">You can conveniently buy medicine online
-                                through our platform or<br/>
-                                visit our hospital pharmacy for <br/> in-person purchases.
-                                Enjoy safe, fast, and reliable <br> access to essential medications.</p><br>
-                            <button class="btn-primary" data-i18n="shop_now">Shop Now</button>
-                        </div>
+                        <img class="img-doctor" src="~/Images/11 PMNDP.png" alt="Doctor">
                     </div>
                 </div>
             </div>
@@ -80,6 +36,22 @@
                 <span class="carousel-control-next-icon"></span>
             </a>
         </section>
+    </div>
+</section>
+
+<!-- Hero Section -->
+<section class="animated-section adjust" id="Home">
+    <div class="img-container">
+        <img class="img-doctor" src="~/Images/ChatGPT Image Apr 16, 2025 at 12_04_56 PM.png" alt="Doctor">
+        <div class="text-overlay">
+            <h3 data-i18n="hero_heading" style="color: black;font-size:40px;font-weight: bold;">We Are Here For Your Care</h3><br> 
+            <p data-i18n="hero_text">Your health is our top priority.<br/>
+                Book an appointment today to get expert care and personalized attention<br/>
+                from our experienced medical team.
+                Whether it's a routine checkup <br/>or a specialized consultation,
+                we're here to serve you. <br/>Don't wait schedule your visit now!</p><br>
+            <button class="btn-primary" data-i18n="book_appointment" href="@Url.Action("Index","Home")#Appointment">Book Your Appointment Now</button>
+        </div>
     </div>
 </section>
 
@@ -508,6 +480,52 @@ select.form-control {
 
 
 </style>
+
+<!-- Logo Carousel Section -->
+<section class="logo-carousel">
+    <div class="logo-carousel-track">
+        <!-- First set of logos -->
+        <div class="logo-carousel-item">
+            <img src="~/Images/images.png" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/Shalby-Hospitals-Ahmedabad-logo.jpg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/gujarat-lab-logo.jpg" alt="">
+        </div>
+        <!-- Duplicate set for infinite effect -->
+        <div class="logo-carousel-item">
+            <img src="~/Images/images.jpeg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/images-2.jpeg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/images-2.png" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/images.png" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/Shalby-Hospitals-Ahmedabad-logo.jpg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/gujarat-lab-logo.jpg" alt="">
+        </div>
+        <!-- Duplicate set for infinite effect -->
+        <div class="logo-carousel-item">
+            <img src="~/Images/images.jpeg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/images-2.jpeg" alt="">
+        </div>
+        <div class="logo-carousel-item">
+            <img src="~/Images/images-2.png" alt="">
+        </div>
+    </div>
+</section>
+
 
 <!-- Doctors Section -->
 <section id="Doctors" class="animated-section">

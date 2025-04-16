@@ -4,110 +4,46 @@
 
 @Html.Partial("login_header")
 <section>
-    <div class="container-fluid" style="max-width: 95%;">
+    <div class="container-fluid px-4" style="max-width: 1400px; margin: 0 auto;">
         <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Appointment Details</h1>
 
         <!-- Alert for API errors or loading status -->
         <div id="profileAlert" class="alert alert-info d-none mb-4"></div>
 
-        <!-- Appointment Detail Container -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card-profile shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Appointment Details</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Full Name</div>
-                                    <div class="profile-field-value" id="name">Loading...</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Phone</div>
-                                    <div class="profile-field-value" id="phone">Loading...</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Appointment Time</div>
-                                    <div class="profile-field-value" id="appointmentTime">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Diseases</div>
-                                    <div class="profile-field-value" id="diseases">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Doctor</div>
-                                    <div class="profile-field-value" id="doctor">Loading...</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Payment ID</div>
-                                    <div class="profile-field-value" id="paymentId">Loading...</div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Order ID</div>
-                                    <div class="profile-field-value" id="orderId">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="profile-field">
-                                    <div class="profile-field-label">Signature</div>
-                                    <div class="profile-field-value" id="signature">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Appointment Details Container -->
+        <div id="appointmentsContainer" class="row">
+            <!-- Appointment cards will be dynamically inserted here -->
         </div>
     </div><br/>
 </section>
 
 <script src="~/js/appointmentdetails.js"></script>
 
-
 <style>
     /* Profile page specific styles */
     .profile-field {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     .profile-field-label {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-weight: bold;
         color: #6c757d;
         text-transform: uppercase;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
     }
 
     .profile-field-value {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        word-break: break-word;
     }
 
     /* Align elements neatly */
     .card {
         min-height: 100%;
+        margin-bottom: 30px;
+        width: 100%;
     }
 
     /* Smaller Change Password button */
@@ -130,6 +66,68 @@
         border-color: #80bdff;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+
+    /* Appointment card styles */
+    .appointment-card {
+        transition: transform 0.2s ease-in-out;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .appointment-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .appointment-status {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        background-color: #ffeeba;
+        color: #856404;
+    }
+
+    .status-confirmed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    /* Card header styles */
+    .card-header {
+        background-color: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+        padding: 1rem 1.25rem;
+    }
+
+    /* Card body styles */
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    /* Row spacing */
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+
+    .col-md-4 {
+        padding: 0 15px;
+    }
+
+    /* Responsive adjustments */
 </style>
 
 <!-- Load the admin profile JavaScript -->

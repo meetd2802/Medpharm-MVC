@@ -23,6 +23,26 @@ function fetchAppointments() {
                 return;
             }
 
+            // Sort appointments by status
+            appointments.sort(function(a, b) {
+                // Define status priority (lower number = higher priority)
+                const statusPriority = {
+                    'booked': 2,
+                    'pending': 1,
+                    'done': 10
+                };
+                
+                // Get status values, default to 'done' if not specified
+                const statusA = (a.status || 'done').toLowerCase();
+                const statusB = (b.status || 'done').toLowerCase();
+                
+                // Get priority values, default to 10 (lowest) if status not in our priority list
+                const priorityA = statusPriority[statusA] || 10;
+                const priorityB = statusPriority[statusB] || 10;
+                
+                return priorityA - priorityB;
+            });
+
             populateTable(appointments); // Call function to display data
         },
         error: function (xhr, status, error) {
@@ -68,7 +88,8 @@ function populateTable(appointments) {
             <td>${appointment.name}</td>
             <td>${appointment.diseases}</td>
             <td>${new Date(appointment.appointmentTime).toLocaleString()}</td>
-            <td>
+            <td>${appointment.status || 'N/A'}</td>
+            <td class="action-buttons">
                 <button class="buttondanger" onclick="deleteAppointment(${appointment.appointmentId})">DELETE</button>
                 <button class="button" onclick="editAppointment(${appointment.appointmentId})">Update</button>
             </td>
