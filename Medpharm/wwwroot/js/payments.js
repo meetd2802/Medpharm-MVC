@@ -1,3 +1,8 @@
+let currentPage = 1;
+const itemsPerPage = 10;
+let allAppointments = [];
+let filteredAppointments = [];
+
 $(document).ready(function() {
     fetchAppointments();
     
@@ -19,20 +24,22 @@ $(document).ready(function() {
     });
 });
 
-let allAppointments = []; // Store all appointments for searching
-
 function fetchAppointments() {
     $.ajax({
         url: 'http://localhost:5071/api/Appointment/getallappointments',
         type: 'GET',
         success: function(response) {
             if (response && Array.isArray(response)) {
-                allAppointments = response; // Store all appointments
-                populatePaymentsTable(response);
+                allAppointments = response;
+                filteredAppointments = response;
+                setupPagination();
+                displayPage(currentPage);
                 calculateTotalRevenue(response);
             } else if (response && response.dataList) {
-                allAppointments = response.dataList; // Store all appointments
-                populatePaymentsTable(response.dataList);
+                allAppointments = response.dataList;
+                filteredAppointments = response.dataList;
+                setupPagination();
+                displayPage(currentPage);
                 calculateTotalRevenue(response.dataList);
             } else {
                 console.error('Unexpected response format:', response);
@@ -46,28 +53,72 @@ function fetchAppointments() {
     });
 }
 
+function setupPagination() {
+    const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
+    const pagination = $("#pagination");
+    pagination.empty();
+
+    // Previous button
+    pagination.append(`
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="changePage(${currentPage - 1})" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    `);
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        pagination.append(`
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+            </li>
+        `);
+    }
+
+    // Next button
+    pagination.append(`
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="changePage(${currentPage + 1})" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    `);
+}
+
+function changePage(page) {
+    if (page < 1 || page > Math.ceil(filteredAppointments.length / itemsPerPage)) return;
+    currentPage = page;
+    displayPage(currentPage);
+    setupPagination();
+}
+
+function displayPage(page) {
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageAppointments = filteredAppointments.slice(startIndex, endIndex);
+    populatePaymentsTable(pageAppointments);
+}
+
 function searchPayments() {
     const searchTerm = $('#searchInput').val().toLowerCase().trim();
     
     if (!searchTerm) {
-        // If search term is empty, show all appointments
-        populatePaymentsTable(allAppointments);
-        calculateTotalRevenue(allAppointments);
-        return;
+        filteredAppointments = allAppointments;
+    } else {
+        filteredAppointments = allAppointments.filter(appointment => {
+            return (
+                (appointment.appointmentId && appointment.appointmentId.toString().includes(searchTerm)) ||
+                (appointment.name && appointment.name.toLowerCase().includes(searchTerm)) ||
+                (appointment.doctor && appointment.doctor.toLowerCase().includes(searchTerm)) ||
+                (appointment.phone && appointment.phone.toString().includes(searchTerm))
+            );
+        });
     }
     
-    // Filter appointments based on search term
-    const filteredAppointments = allAppointments.filter(appointment => {
-        return (
-            (appointment.appointmentId && appointment.appointmentId.toString().includes(searchTerm)) ||
-            (appointment.name && appointment.name.toLowerCase().includes(searchTerm)) ||
-            (appointment.doctor && appointment.doctor.toLowerCase().includes(searchTerm)) ||
-            (appointment.phone && appointment.phone.toString().includes(searchTerm))
-        );
-    });
-    
-    // Update table with filtered results
-    populatePaymentsTable(filteredAppointments);
+    currentPage = 1;
+    setupPagination();
+    displayPage(currentPage);
     calculateTotalRevenue(filteredAppointments);
 }
 

@@ -7,48 +7,83 @@
 <script src="script.js"></script>
 
 <div class="custom-container d-flex justify-content-center align-items-center min-vh-100">
-    <div class="row custom-card w-75 rounded">
-        <!-- Left Side - Image -->
-        <div class="col-md-6 p-0">
-            <img src="~/Images/registeruser2.webp" class="custom-img rounded-left" alt="Register Image">
-        </div>
-
-        <!-- Right Side - Registration Form -->
-        <div class="col-md-6 custom-bg p-5 rounded-right">
-            <h3 class="text-center mb-4 custom-title">REGISTER</h3>
+    <div class="custom-card rounded">
+        <div class="custom-bg p-5">
+            <div class="text-center mb-4">
+                <h3 class="custom-title">Create Account</h3>
+                <p class="text-muted">Join us today and get started</p>
+            </div>
 
             <form method="post">
-                <div class="form-group">
-                    <label for="fname">Full Name:</label>
-                    <input type="text" id="fname" name="fname" class="form-control custom-input" required>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="fname" class="form-label fw-bold">Full Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-user"></i></span>
+                                <input type="text" id="fname" name="fname" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="uname" class="form-label fw-bold">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-user-circle"></i></span>
+                                <input type="text" id="uname" name="uname" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="uname">Username:</label>
-                    <input type="text" id="uname" name="uname" class="form-control custom-input" required>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="email" class="form-label fw-bold">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                                <input type="email" id="email" name="email" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="phone" class="form-label fw-bold">Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-phone"></i></span>
+                                <input type="tel" id="phone" name="phone" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">Email:</label>
-                    <input type="email" id="email" name="email" class="form-control custom-input" required>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label fw-bold">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-lock"></i></span>
+                                <input type="password" id="password" name="password" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-4">
+                            <label for="confirm_password" class="form-label fw-bold">Confirm Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-lock"></i></span>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control custom-input" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" class="form-control custom-input" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Enter Password:</label>
-                    <input type="password" id="password" name="password" class="form-control custom-input" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="confirm_password">Re-enter Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="form-control custom-input" required>
-                </div>
-
-                <button type="submit" class="btn custom-btn btn-block">REGISTER</button>
+                <button type="submit" class="btn custom-btn btn-block w-100 py-3 mb-4">
+                    <i class="fas fa-user-plus me-2"></i>REGISTER
+                </button>
             </form>
 
             <hr class="custom-divider">
@@ -114,17 +149,22 @@
 <style>
     /* Custom Registration Page Styling */
     .custom-container {
-        height: 100vh;
-    }
-
-    .custom-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        background: linear-gradient(120deg, #f6f9fc 0%, #eef2f7 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
     }
 
     .custom-card {
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        width: 800px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        transition: transform 0.3s ease;
+        background: white;
+        margin-top: 2rem;
+    }
+
+    .custom-card:hover {
+        transform: translateY(-2px);
     }
 
     .custom-bg {
@@ -132,40 +172,67 @@
     }
 
     .custom-btn {
-        background-color: #007bff;
+        background: linear-gradient(45deg, #2193b0, #6dd5ed);
         border: none;
         font-weight: bold;
-        padding: 10px;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        color: white;
     }
 
     .custom-btn:hover {
-        background-color: #0056b3;
+        background: linear-gradient(45deg, #6dd5ed, #2193b0);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        color: white;
     }
 
     .custom-divider {
-        border-top: 1px solid #ccc;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 1.5rem 0;
     }
 
     .custom-title {
         font-family: 'Times New Roman';
         font-weight: bold;
+        color: #2c3e50;
+        font-size: 2rem;
     }
 
     .custom-input {
-        border-radius: 5px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        padding: 12px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .custom-input:focus {
+        border-color: #2193b0;
+        box-shadow: 0 0 0 0.2rem rgba(33, 147, 176, 0.25);
     }
 
     .custom-link {
-        color: red;
+        color: #2193b0;
         text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
     }
 
     .custom-link:hover {
-        text-decoration: underline;
+        color: #6dd5ed;
+        text-decoration: none;
     }
 
     .custom-text {
         font-family: 'Times New Roman';
+        color: #6c757d;
+    }
+
+    .input-group-text {
+        border: 1px solid #dee2e6;
+        background-color: #f8f9fa;
+        color: #2193b0;
     }
 </style>
 
