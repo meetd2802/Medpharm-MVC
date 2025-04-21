@@ -50,7 +50,7 @@
                 from our experienced medical team.
                 Whether it's a routine checkup <br/>or a specialized consultation,
                 we're here to serve you. <br/>Don't wait schedule your visit now!</p><br>
-            <button class="btn-primary" data-i18n="book_appointment" href="#Appointment">Book Your Appointment Now</button>
+            <button class="btn-primary" data-i18n="book_appointment" onclick="scrollToAppointment()">Book Your Appointment Now</button>
         </div>
     </div>
 </section>
@@ -585,126 +585,24 @@ select.form-control {
 </section>
 
 <!-- Patient Testimonials Section -->
-<section id="testimonials" class="py-5 bg-light animated-section">
+<section id="testimonials" class="py-3 bg-light animated-section" style="max-height: 400px; overflow: hidden; position: relative;">
     <div class="container">
-        <div class="text-center mb-5">
+        <div class="text-center mb-3">
             <h2 data-i18n="testimonials_heading">Patient Testimonials</h2>
             <p class="text-muted" data-i18n="testimonials_subtitle">What our patients say about us</p>
         </div>
 
-        <div id="testimonialCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">Sarah Johnson</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="card-text">"The care I received at MedPharm was exceptional. The staff was friendly and professional."</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">Michael Rodriguez</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="card-text">"After struggling with back pain for years, I finally found relief thanks to MedPharm's team."</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">Emily Chen</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="card-text">"The at-home lab testing service was incredibly convenient and fast."</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">John Smith</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                    <p class="card-text">"Amazing customer service and knowledgeable doctors."</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">Alice Brown</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="card-text">"Efficient and thorough. The best healthcare experience I've had!"</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card testimonial-card">
-                                <div class="card-body">
-                                    <h5 class="mb-0">David Williams</h5>
-                                    <div class="text-warning">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <p class="card-text">"I appreciate the professionalism and efficiency of the staff."</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <div id="testimonialCarousel" class="carousel slide" data-ride="carousel" style="position: relative;">
+            <div class="carousel-inner" id="testimonialContainer" style="max-height: 300px;">
+                <!-- Testimonials will be injected here -->
             </div>
 
             <!-- Carousel Controls -->
-            <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-slide="prev" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%);">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-slide="next" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
@@ -1452,4 +1350,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Setup language functionality
         setupLanguage();
     });
+
+    function scrollToAppointment() {
+        const appointmentSection = document.getElementById('Appointment');
+        if (appointmentSection) {
+            appointmentSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 </script>

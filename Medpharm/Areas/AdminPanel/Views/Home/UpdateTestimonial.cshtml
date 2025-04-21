@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Update Testimonial";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card mx-auto mt-5" style="max-width: 600px; background: rgba(173, 216, 230, 0.5); backdrop-filter: blur(10px);">
+            <div class="card-header text-center">
+                <h3 class="mb-0"><i class="fas fa-comment-alt me-2"></i> Update Testimonial</h3>
+            </div>
+            <div class="card-body">
+                <form id="updateTestimonialForm">
+                    <input type="hidden" id="testimonialId">
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user me-2"></i>Name
+                        </label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+
+                    <!-- Rating -->
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">
+                            <i class="fas fa-star me-2"></i>Rating
+                        </label>
+                        <select id="rating" name="rating" class="form-control" required>
+                            <option value="1">1 Star</option>
+                            <option value="2">2 Stars</option>
+                            <option value="3">3 Stars</option>
+                            <option value="4">4 Stars</option>
+                            <option value="5">5 Stars</option>
+                        </select>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="mb-3">
+                        <label for="content" class="form-label">
+                            <i class="fas fa-comment me-2"></i>Testimonial Content
+                        </label>
+                        <textarea id="content" name="content" class="form-control" rows="4" required></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="button" onclick="updateTestimonial()" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Update Testimonial
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Popup -->
+        <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+            <i class="fas fa-check-circle"></i> Testimonial Updated Successfully!
+        </div>
+
+        <!-- Error Popup -->
+        <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+            <i class="fas fa-exclamation-circle"></i> Error Updating Testimonial!
+        </div>
+    </div>
+</section>
+
+<script src="~/js/updatetestimonial.js"></script>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml") 

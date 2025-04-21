@@ -1,0 +1,82 @@
+@{
+    ViewData["Title"] = "Add Testimonial";
+}
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
+
+<section class="animated-section">
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title text-center mb-0">
+                    <i class="fas fa-comment-alt me-2"></i>Add New Testimonial
+                </h3>
+            </div>
+            <div class="card-body">
+                <form id="testimonialForm" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="Name" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Name
+                                </label>
+                                <input type="text" id="Name" name="Name" class="form-control" required
+                                       placeholder="Enter customer name">
+                                <div class="invalid-feedback">Please enter a name.</div>
+                            </div>
+
+                            <!-- Rating -->
+                            <div class="mb-3">
+                                <label for="Rating" class="form-label">
+                                    <i class="fas fa-star me-2"></i>Rating
+                                </label>
+                                <select id="Rating" name="Rating" class="form-control" required>
+                                    <option value="">Select a rating</option>
+                                    <option value="1">1 Star</option>
+                                    <option value="2">2 Stars</option>
+                                    <option value="3">3 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                    <option value="5">5 Stars</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a rating.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Testimonial Content -->
+                            <div class="mb-3">
+                                <label for="Content" class="form-label">
+                                    <i class="fas fa-comment me-2"></i>Testimonial Content
+                                </label>
+                                <textarea id="Content" name="Content" class="form-control" rows="5" required
+                                          placeholder="Enter the testimonial content..."></textarea>
+                                <div class="invalid-feedback">Please provide testimonial content.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 col-md-6 mx-auto mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-save me-2"></i>Add Testimonial
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup -->
+    <div id="successPopup" class="popup alert alert-success text-center" style="display:none;">
+        <i class="fas fa-check-circle"></i> Testimonial Added Successfully!
+    </div>
+
+    <!-- Error Popup -->
+    <div id="errorPopup" class="popup alert alert-danger text-center" style="display:none;">
+        <i class="fas fa-exclamation-circle"></i> Error Adding Testimonial!
+    </div>
+</section>
+
+<script src="~/js/addtestimonial.js"></script>
+
+@Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_footer.cshtml") 

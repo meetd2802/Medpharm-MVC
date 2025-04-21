@@ -194,6 +194,21 @@ namespace Medpharm.Areas.AdminPanel.Controllers
         {
             return View("~/Areas/AdminPanel/Views/Home/UpdateHealthTip.cshtml");
         }
+        
+        public IActionResult Testimonial()
+        {
+            return View("~/Areas/AdminPanel/Views/Home/Testimonial.cshtml");
+        }
+        
+        public IActionResult UpdateTestimonial()
+        {
+            return View("~/Areas/AdminPanel/Views/Home/UpdateTestimonial.cshtml");
+        }
+        
+        public IActionResult AddTestimonial()
+        {
+            return View("~/Areas/AdminPanel/Views/Home/AddTestimonial.cshtml");
+        }
 
         public IActionResult Payments()
         {
