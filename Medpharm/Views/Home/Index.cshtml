@@ -174,80 +174,130 @@
                 return;
             }
 
-            appointmentForm.addEventListener("submit", function (event) {
+            appointmentForm.addEventListener("submit", async function (event) {
                 event.preventDefault();
+                console.log("Form submission started");
 
                 const formData = new FormData(appointmentForm);
-                const amountInPaise = 50000; // ₹500
+                const doctor = formData.get("Doctor");
+                const appointmentTime = formData.get("AppointmentTime");
 
-                fetch("http://localhost:5071/api/Payments/create-order", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ amount: amountInPaise })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (!data.orderId) {
-                            alert("Failed to create Razorpay order.");
-                            return;
-                        }
+                console.log("Selected doctor:", doctor);
+                console.log("Selected time:", appointmentTime);
 
-                        const options = {
-                            key: data.key,
-                            amount: data.amount,
-                            currency: data.currency,
-                            order_id: data.orderId,
-                            name: "Medpharm Appointment",
-                            description: "Consultation Payment",
-                            handler: function (response) {
-                                try {
-                                    formData.append("paymentId", response.razorpay_payment_id);
-                                    formData.append("orderId", response.razorpay_order_id);
-                                    formData.append("signature", response.razorpay_signature);
+                if (!doctor || !appointmentTime) {
+                    alert("Please select both doctor and appointment time.");
+                    return;
+                }
 
-                                    fetch("http://localhost:5071/api/Appointment/createappointment", {
-                                        method: "POST",
-                                        body: formData,
-                                        credentials: "include"
-                                    })
-                                        .then(async res => {
-                                            if (res.ok) {
-                                                console.log("Appointment saved successfully");
-                                                showSuccessPopup("Appointment booked successfully!");
-                                                appointmentForm.reset();
-                                            } else {
-                                                const errorText = await res.text();
-                                                console.error("Appointment save failed:", errorText);
-                                                alert("Something went wrong:\n" + errorText);
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.error("DB save error:", error);
-                                            alert("Error saving appointment after payment.");
-                                        });
-                                } catch (e) {
-                                    console.error("Handler error:", e);
-                                }
-                            },
-                            prefill: {
-                                name: document.getElementById("Name").value,
-                                contact: document.getElementById("Phone").value,
-                                email: "test@example.com"
-                            },
-                            theme: {
-                                color: "#3399cc"
-                            }
-                        };
+                try {
+                    // First check if the slot is available
+                    console.log("Checking appointment availability...");
+                    const checkUrl = `http://localhost:5071/api/Appointment/getappointmentsbydoctorandtime?doctor=${encodeURIComponent(doctor)}&appointmentTime=${encodeURIComponent(appointmentTime)}`;
+                    console.log("Checking URL:", checkUrl);
 
-                        const rzp = new Razorpay(options);
-                        rzp.open();
-                    })
-                    .catch(error => {
-                        console.error("Order creation error:", error);
-                        alert("Error initiating payment.");
+                    const checkResponse = await fetch(checkUrl);
+                    console.log("Check response status:", checkResponse.status);
+                    
+                    if (!checkResponse.ok) {
+                        console.error("Check response not OK:", checkResponse.status);
+                        throw new Error('Failed to check appointment availability');
+                    }
+
+                    const response = await checkResponse.json();
+                    console.log('API Response:', response);
+
+                    // Check if there are existing appointments in the dataList
+                    if (response && response.dataList && response.dataList.length > 0) {
+                        console.log("Slot is already booked");
+                        alert("Sorry, this time slot is already booked. Please select a different time or doctor.");
+                        return;
+                    }
+
+                    console.log("Slot is available, proceeding to payment");
+
+                    // If we get here, the slot is available, proceed with payment
+                    const amountInPaise = 50000; // ₹500
+
+                    console.log("Creating payment order...");
+                    const paymentResponse = await fetch("http://localhost:5071/api/Payments/create-order", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ amount: amountInPaise })
                     });
+
+                    if (!paymentResponse.ok) {
+                        console.error("Payment response not OK:", paymentResponse.status);
+                        throw new Error('Failed to create payment order');
+                    }
+
+                    const paymentData = await paymentResponse.json();
+                    console.log("Payment data received:", paymentData);
+                    
+                    if (!paymentData.orderId) {
+                        console.error("No order ID in payment data");
+                        alert("Failed to create Razorpay order.");
+                        return;
+                    }
+
+                    const options = {
+                        key: paymentData.key,
+                        amount: paymentData.amount,
+                        currency: paymentData.currency,
+                        order_id: paymentData.orderId,
+                        name: "Medpharm Appointment",
+                        description: "Consultation Payment",
+                        handler: function (response) {
+                            try {
+                                console.log("Payment successful, saving appointment...");
+                                formData.append("paymentId", response.razorpay_payment_id);
+                                formData.append("orderId", response.razorpay_order_id);
+                                formData.append("signature", response.razorpay_signature);
+
+                                fetch("http://localhost:5071/api/Appointment/createappointment", {
+                                    method: "POST",
+                                    body: formData,
+                                    credentials: "include"
+                                })
+                                    .then(async res => {
+                                        if (res.ok) {
+                                            console.log("Appointment saved successfully");
+                                            showSuccessPopup("Appointment booked successfully!");
+                                            appointmentForm.reset();
+                                        } else {
+                                            const errorText = await res.text();
+                                            console.error("Appointment save failed:", errorText);
+                                            alert("Something went wrong:\n" + errorText);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("DB save error:", error);
+                                        alert("Error saving appointment after payment.");
+                                    });
+                            } catch (e) {
+                                console.error("Handler error:", e);
+                            }
+                        },
+                        prefill: {
+                            name: document.getElementById("Name").value,
+                            contact: document.getElementById("Phone").value,
+                            email: "test@example.com"
+                        },
+                        theme: {
+                            color: "#3399cc"
+                        }
+                    };
+
+                    console.log("Opening Razorpay...");
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+
+                } catch (error) {
+                    console.error("Error in appointment process:", error);
+                    alert("Error checking appointment availability. Please try again.");
+                }
             });
         });
 
@@ -266,7 +316,6 @@
             }
         }
     </script>
-
 </section>
 
 <style>
@@ -1357,4 +1406,55 @@ document.addEventListener('DOMContentLoaded', function() {
             appointmentSection.scrollIntoView({ behavior: 'smooth' });
         }
     }
+
+    // Add this at the end of your existing script section
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all sections and navbar links
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+        // Function to highlight active section
+        function highlightActiveSection() {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            // Remove active class from all links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', highlightActiveSection);
+        
+        // Call once on page load to set initial state
+        highlightActiveSection();
+    });
 </script>
+
+<style>
+    /* Add these styles to your existing styles */
+    .navbar-nav .nav-link {
+        transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link.active {
+        color: #3498db !important;
+        font-weight: bold;
+    }
+
+    /* Optional: Add smooth scrolling to the entire page */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
