@@ -1,29 +1,103 @@
-<footer>
-    <section class="footer">
-        <div class="container">
-            <ul class="footer-list">
-                <li>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:medpharm123@gmail.com">medpharm123@gmail.com</a>
-                </li>
-                <li>
-                    <i class="fas fa-globe"></i>
-                    <a href="https://medpharm.com" target="_blank">www.medpharm.com</a>
-                </li>
-                <li>
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:+9898076085">+9898076085</a>
-                </li>
-                <li>
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Medpharm Hospital, opp. Vakil Shaheb Bridge, Boap Ahmedabad 380058</span>
-                </li>
-                <li>
-                    <p class="mb-0">© 2025 Medpharm. All Rights Reserved.</p>
-                </li>
-            </ul>
+<!-- Footer Section -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Hospital Info -->
+            <div class="col-md-4 text-center mb-4">
+                <h5 class="mb-3">About MedPharm</h5>
+                <p class="mb-3">MedPharm Hospital is a comprehensive healthcare facility providing quality medical services since 2005. We are committed to excellence in patient care and innovative treatments.</p>
+                <div class="social-icons">
+                    <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="col-md-4 text-center">
+                <h5 class="mb-3">Contact Us</h5>
+                <address class="mb-0">
+                    <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Medpharm Hospital, <br>opp. Vakil Shaheb Bridge, <br>Boap Ahmedabad 380058</p>
+                    <p class="mb-2"><i class="fas fa-phone me-2"></i> <a href="tel:+9898076085" class="text-light">+91 9898076085</a></p>
+                    <p class="mb-2"><i class="fas fa-envelope me-2"></i> <a href="mailto:medpharm123@gmail.com" class="text-light">medpharm123@gmail.com</a></p>
+                </address>
+            </div>
         </div>
-    </section>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="bg-primary text-center py-3 mt-4">
+        <div class="container">
+            <p class="mb-0">© 2025 MedPharm Hospital. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
+
+<style>
+    .footer {
+        background-color: var(--dark);
+        color: white;
+    }
+
+    .footer h5 {
+        color: var(--health-teal);
+        font-weight: 600;
+        position: relative;
+        display: inline-block;
+    }
+
+    .footer h5:after {
+        content: '';
+        position: absolute;
+        width: 50px;
+        height: 2px;
+        background-color: var(--health-teal);
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer p {
+        color: var(--gray-300);
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .social-icons {
+        margin-top: 1.5rem;
+    }
+
+    .social-icons a {
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .social-icons a:hover {
+        color: var(--health-teal) !important;
+        transform: translateY(-3px);
+    }
+
+    .footer address p {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer address i {
+        color: var(--health-teal);
+        width: 20px;
+    }
+
+    .footer a {
+        transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+        color: var(--health-teal) !important;
+        text-decoration: none;
+    }
+    
+</style>
 
 <script src="~/js/updateprofile.js"></script>

@@ -3,12 +3,14 @@
 }
 @Html.Partial("~/Areas/AdminPanel/Views/Shared/_admin_header.cshtml")
 
-<div class="text-center">
-    <h3>Contact Us</h3>
-</div>
+<div class="container">
+    <div class="section-header">
+        <h3 class="section-title">
+            <i class="fas fa-envelope me-1"></i>Contact Us
+        </h3>
+    </div>
 
-<section>
-    <div class="container">
+    <section>
         <div class="table-container">
             <table class="table-design" id="contactTable">
                 <thead>
@@ -35,8 +37,8 @@
                 </ul>
             </nav>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 <style>
     .pagination-container {

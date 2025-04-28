@@ -117,7 +117,7 @@ header {
     padding: 1rem 1.25rem;
     font-weight: 460;
     transition: all 0.2s ease;
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
